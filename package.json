@@ -50,7 +50,8 @@
     "passport-twitter": "~1.0.2",
     "request": "^2.58.0",
     "swig": "~1.4.1",
-    "twilio": "2.2.1"
+    "twilio": "2.2.1",
+    "uber-api": "^0.3.3"
   },
   "devDependencies": {
     "grunt-concurrent": "~1.0.0",
