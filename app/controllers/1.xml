@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Say>Hello biiiiiiitch</Say>
+    <Say>Hello </Say>
     <Play>https://a.clyp.it/uykbrj3y.mp3</Play>
     <Gather timeout="8" finishOnKey="any digit">
-        <Say>Press 1 for Uber, Press 2 for Food, Press 3 for Sex, Press 4 for Laundry, Press 5 for Groceries</Say>
+        <Say>Press 1 for Uber, Press 2 for Food, Press 4 for Laundry, Press 5 for Groceries</Say>
         <Play>https://a.clyp.it/e5ihm2ji.mp3</Play>
     </Gather>
-    <Say>You wanted sex</Say>
+    <Say>You wanted: Uber</Say>
 </Response>
