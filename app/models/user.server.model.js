@@ -88,7 +88,14 @@ var UserSchema = new Schema({
 	},
 	resetPasswordExpires: {
 		type: Date
+	},
+	clientName: {
+		type: String
+	},
+	phone: {
+		type: String
 	}
+	
 });
 
 /**
