@@ -14,8 +14,7 @@ module.exports = function(app) {
         .post(api.accept);
     app.route('/api/uber')
     	.get(api.uberAuth);
-    app.route('/api/getUber')
-        .get(api.getUber);
     app.route('/api/accept/handle')
-        .post(api.handle);
+        .get(api.getUber)
+        .post(api.getUber);
 };
