@@ -17,8 +17,9 @@ exports.accept = function(req, res) {
 
 };
 
+//send to Uber XML
 exports.handle = function(req, res){
-    res.set('Content-Type', 'test/xml');
+    res.set('Content-Type', 'text/xml');
     res.sendFile(__dirname + '/2.xml');
 };
 
@@ -37,7 +38,7 @@ request({
   }, function(err, resp, body){
    if (err)
     console.error(err);
-  console.log(body);
+    console.log(body);
 }
 );
 };
