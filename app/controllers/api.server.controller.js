@@ -17,30 +17,56 @@ exports.accept = function(req, res) {
 
 };
 
-//send to Uber XML
+//handle input 
 exports.handle = function(req, res){
-    res.set('Content-Type', 'text/xml');
-    res.sendFile(__dirname + '/2.xml');
+    //switch uses strict comparison '==='
+    switch (req.body.Digits) {
+        case '1':
+            //food handle
+            break;
+        case '2':
+            //uber handler
+            //uber Twiml Send
+            res.set('Content-Type', 'text/xml');
+            res.sendFile(__dirname + '/uber.xml');
+            //request to actual uber
+            var request = require('request');
+            request
+                .get('http://grndma.ngrok.io/api/getUber');
+            break;
+        case '3':
+            //tech handler
+            break;
+        case '4':
+            //laundry handler
+            break;
+        default:
+            //error handler
+            break;
+    }
+    if (req.body.Digits === '1') {    
+        res.set('Content-Type', 'text/xml');
+        res.sendFile(__dirname + '/2.xml');
+    }
 };
 
 exports.uberAuth = function(req, res) {
   var request = require('request');
+    request({
+      url: 'https://sandbox-api.uber.com/v1/products',
+      method: 'GET',
+      qs: {
+      'server_token': 'IjJKxQTB9RT-I6rSlvUalipTWlKdTSaf5GF-Cv29',
+      'latitude': 41.9373,
+      'longitude': -87.6551
+      }
 
-request({
-  url: 'https://sandbox-api.uber.com/v1/products',
-  method: 'GET',
-  qs: {
-  'server_token': 'IjJKxQTB9RT-I6rSlvUalipTWlKdTSaf5GF-Cv29',
-  'latitude': 41.9373,
-  'longitude': -87.6551
-  }
-
-  }, function(err, resp, body){
-   if (err)
-    console.error(err);
-    console.log(body);
-}
-);
+      }, function(err, resp, body){
+       if (err)
+        console.error(err);
+        console.log(body);
+    }
+    );
 };
 
 exports.getUber = function(req, res) {
