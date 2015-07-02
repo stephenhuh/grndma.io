@@ -44,10 +44,6 @@ exports.handle = function(req, res){
             //error handler
             break;
     }
-    if (req.body.Digits === '1') {    
-        res.set('Content-Type', 'text/xml');
-        res.sendFile(__dirname + '/2.xml');
-    }
 };
 
 exports.uberAuth = function(req, res) {
