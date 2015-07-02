@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
+    <Gather action="http://grndma.ngrok.io/api/accept/handle" method="GET">
     <Play>https://a.clyp.it/uykbrj3y.mp3</Play>
-    <Gather timeout="5" finishOnKey="#" action="http://grndma.ngrok.io/api/accept/handle">
-        <Say>Press 1 for Uber, Press 2 for Food, Press 3 for Tech Help, Press 4 for Laundry, Press 5 for Groceries</Say>
+    <Say>Press 1 for Food, Press 2 for Uber, Press 3 for Tech Help, Press 4 for Laundry, Press 5 for Groceries</Say>
         <Play>https://a.clyp.it/e5ihm2ji.mp3</Play>
-        <Say>Okay let me call an Uber for you grandma June</Say>
+        <Say>Okay let me call an Uber for you grandma 1606 East Hyde Park
+            Blvd, Chicago Illinois</Say>
+        <Say>You wanted: Uber</Say>
     </Gather>
 </Response>
