@@ -3,13 +3,5 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
-
-# THANKS
-
-    <name>
-
-# TECHNOLOGY COLOPHON
-
-    HTML5, CSS3
-    jQuery, Modernizr
+  Kyle Mattimore -  Stephen Huh - Aaron Leon - Ryan Hamilton
+  https://github.com/stephenhuh/grndma.io
