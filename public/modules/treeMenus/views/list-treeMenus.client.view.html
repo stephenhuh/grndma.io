@@ -1,0 +1,19 @@
+<section data-ng-controller="TreeMenusController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>TreeMenus</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="treeMenu in treeMenus" data-ng-href="#!/treeMenus/{{treeMenu._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="treeMenu.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="treeMenu.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="treeMenu.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!treeMenus.$resolved || treeMenus.length">
+    	No TreeMenus yet, why don't you <a href="/#!/treeMenus/create">create one</a>?
+    </div>
+</section>
