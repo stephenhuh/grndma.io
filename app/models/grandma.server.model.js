@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
-
+require('./treeMenu.server.model.js');
 /**
  * Grandma Schema
  */
@@ -42,9 +42,9 @@ var GrandmaSchema = new Schema({
 		type: Number,
 		default: 0,
 		trim: true
-	}
-	
-	
+	},
+	// rootTreeMenu: { type: Schema.Types.ObjectId, ref: 'treeMenu' }
+	rootTreeMenu: [mongoose.model('treeMenu').schema]
 });
 
 mongoose.model('Grandma', GrandmaSchema);

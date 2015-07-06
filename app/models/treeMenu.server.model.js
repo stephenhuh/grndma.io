@@ -37,7 +37,7 @@ var treeMenuSchema = new Schema({
 		default: Date.now
 	},
   //children can be Menus or ServiceActions
-	children: [Schema.Types.ObjectId]
+	children: [treeMenuSchema]
 });
 
 mongoose.model('treeMenu', treeMenuSchema);
