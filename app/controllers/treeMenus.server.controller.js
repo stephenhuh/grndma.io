@@ -6,102 +6,103 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
-	menu = mongoose.model('Menu'),
+	//this mongoose/express thing of using capitals and plural is kind of a nightmare
+	TreeMenu = mongoose.model('treeMenu'),
 	_ = require('lodash');
 
 /**
  * Create
  */
 exports.create = function(req, res) {
-	var menu = new menu(req.body);
-	menu.user = req.user;
+	var treeMenu = new TreeMenu(req.body);
+	treeMenu.user = req.user;
 
-	menu.save(function(err) {
+	treeMenu.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(menu);
+			res.jsonp(treeMenu);
 		}
 	});
 };
 
 /**
- * Show the current menu
+ * Show the current treeMenu
  */
 exports.read = function(req, res) {
-	res.jsonp(req.menu);
+	res.jsonp(req.treeMenu);
 };
 
 /**
- * Update a menu
+ * Update a treeMenu
  */
 exports.update = function(req, res) {
-	var menu = req.menu ;
+	var treeMenu = req.treeMenu ;
 
-	menu = _.extend(menu , req.body);
+	treeMenu = _.extend(treeMenu , req.body);
 
-	menu.save(function(err) {
+	treeMenu.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(menu);
+			res.jsonp(treeMenu);
 		}
 	});
 };
 
 /**
- * Delete an menu
+ * Delete an treeMenu
  */
 exports.delete = function(req, res) {
-	var menu = req.menu ;
+	var treeMenu = req.treeMenu ;
 
-	menu.remove(function(err) {
+	treeMenu.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(menu);
+			res.jsonp(treeMenu);
 		}
 	});
 };
 
 /**
- * List of menus
+ * List of treeMenus
  */
 exports.list = function(req, res) {
-	menu.find().sort('-created').populate('user', 'displayName').exec(function(err, menus) {
+	TreeMenu.find().sort('-created').populate('user', 'displayName').exec(function(err, treeMenus) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(menus);
+			res.jsonp(treeMenus);
 		}
 	});
 };
 
 /**
- * menu middleware
+ * treeMenu middleware
  */
-exports.menuByID = function(req, res, next, id) {
-	menu.findById(id).populate('user', 'displayName').exec(function(err, menu) {
+exports.treeMenuByID = function(req, res, next, id) {
+	TreeMenu.findById(id).populate('user', 'displayName').exec(function(err, treeMenu) {
 		if (err) return next(err);
-		if (! menu) return next(new Error('Failed to load menu ' + id));
-		req.menu = menu ;
+		if (! treeMenu) return next(new Error('Failed to load treeMenu ' + id));
+		req.treeMenu = treeMenu ;
 		next();
 	});
 };
 
 /**
- * menu authorization middleware
+ * treeMenu authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.menu.user.id !== req.user.id) {
+	if (req.treeMenu.user.id !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();

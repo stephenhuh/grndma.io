@@ -10,10 +10,11 @@ angular.module('treeMenus').controller('TreeMenusController', ['$scope', '$state
 			// Create new TreeMenu object
 			var treeMenu = new TreeMenus ({
 				name: this.name,
-				phone: this.phone,
-				address: this.address,
-				lat: this.lat,
-				lon: this.lon
+				digit: this.digit,
+				spokenName: this.spokenName
+				// address: this.address,
+				// lat: this.lat,
+				// lon: this.lon
 			});
 
 			// Redirect after save
@@ -29,7 +30,7 @@ angular.module('treeMenus').controller('TreeMenusController', ['$scope', '$state
 
 		// Remove existing TreeMenu
 		$scope.remove = function(treeMenu) {
-			if ( treeMenu ) { 
+			if ( treeMenu ) {
 				treeMenu.$remove();
 
 				for (var i in $scope.treeMenus) {
@@ -62,7 +63,7 @@ angular.module('treeMenus').controller('TreeMenusController', ['$scope', '$state
 
 		// Find existing TreeMenu
 		$scope.findOne = function() {
-			$scope.treeMenu = TreeMenus.get({ 
+			$scope.treeMenu = TreeMenus.get({
 				treeMenuId: $stateParams.treeMenuId
 			});
 		};
