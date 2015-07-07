@@ -36,6 +36,10 @@ var treeMenuSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
+	grandmaID: {
+		type: Schema.ObjectId,
+		ref: 'Grandma'
+	},
   //children can be Menus or ServiceActions
 	children: [treeMenuSchema]
 });

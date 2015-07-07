@@ -72,8 +72,8 @@ exports.delete = function(req, res) {
 /**
  * List of Grandmas
  */
-exports.list = function(req, res) { 
-	Grandma.find().sort('-created').populate('user', 'displayName').exec(function(err, grandmas) {
+exports.list = function(req, res) {
+	Grandma.find({'user' : req.user.id}).sort('-created').populate('user', 'displayName').exec(function(err, grandmas) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -87,7 +87,7 @@ exports.list = function(req, res) {
 /**
  * Grandma middleware
  */
-exports.grandmaByID = function(req, res, next, id) { 
+exports.grandmaByID = function(req, res, next, id) {
 	Grandma.findById(id).populate('user', 'displayName').exec(function(err, grandma) {
 		if (err) return next(err);
 		if (! grandma) return next(new Error('Failed to load Grandma ' + id));
@@ -100,6 +100,7 @@ exports.grandmaByID = function(req, res, next, id) {
  * Grandma authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
+//	console.log('hi ' + req.grandma.user.id + ' user: ' + req.user.id);
 	if (req.grandma.user.id !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
