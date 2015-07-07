@@ -1,35 +1,61 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="css/home.client.view.css"></link>
+</head>
+<div class="dimscreen">
+</div>
 <section data-ng-controller="HomeController">
-	<div class="jumbotron text-center">
-		<div class="row">
-			<div class="col-md-6 col-sm-6 col-xs-12">
-				<img alt="GRNDMA.IO" class="img-responsive text-center img-rounded" src="/img/grandma.jpg" />
+	<div class="fullscreen-bg">
+		<div class="fullscreen-bg_video">
+			<video loop muted autoplay class="fullscreen-bg_video">
+				<source src="img/bg.mp4" type="video/mp4">
+			</video>
+		</div>
+	</div>
+	<div class="container">
+	  <div class="row text-center">
+			<img src="img/grndma.png">
+		  </img>
+		</div>
+		<div class="container">
+	  		<div class="row">
+	    		<div class="col-md-10 col-md-offset-1 text-center">
+		    		<h1> Services and applications at the push of a button </h1>
+  	  		</div>
+    		</div>
+			</div>
+			<br></br>
+			<div class="row">
+				<div class="col-md-4">
+					<h2>
+					<strong>G</strong>enerate
+				</h2>
+				<h4>a catered profile for your elderly loved one. Sign up for a free account today, and get started right away.</h3>
+			</div>
+			<div class="col-md-4">
+					<h2>
+					<strong>M</strong>ake
+				</h2>
+				<h4>a personalized phone tree that does exactly what your elderly loved one wants and needs, down to their favorite pizza toppings.</h3>
+			</div>
+			<div class="col-md-4">
+				<h2>
+					<strong>A</strong>ccess
+				</h2>
+				<h4>the convenience of life-changing technology without the inconvenience of dealing with complex interfaces.</h3>
 			</div>
 		</div>
-
-	</div>
-	<div>
-		<h2> <bold> Welcome!</bold> </h2>
-		<p>Use grndma.io to build a custom phone tree to help your family members leverage the power of the Internet - with any landline phone!. </p>
-	</div>
-	<div class="row">
-		<div class="col-md-3">
-			<h2>
-				<strong>Generate</strong>
-			</h2>
-			<p>a catered profile for your loved one. <a href="/#!/signup">Sign up</a> for a free account, and get started today.</p>
+		<br></br>
+		<div class="row">
+		  <div class="col-md-2 col-md-offset-4 text-center">
+			  <a href="/#!/signin">
+					<button class="btn btn-lg btn-default">Sign in</button>
+				</a>
+			</div>
+			<div class="col-md-2 text-center">
+			  <a href="/#!signup">
+					<button class="btn btn-lg btn-primary">Sign up</button>
+				</a>
+		  </div>
 		</div>
-		<div class="col-md-3">
-			<h2>
-				<strong>M</strong>ake
-			</h2>
-			<p>a personalized phone tree that does exactly what your loved one needs- down to their favorite pizza toppings.</p>
-		</div>
-		<div class="col-md-3">
-			<h2>
-				<strong>A</strong>ccess
-			</h2>
-			<p>the convenience of life-changing technology without the inconvenience of using their interfaces.</p>
-		</div>
-	</div>
-
+	</container>
 </section>
