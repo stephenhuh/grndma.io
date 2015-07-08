@@ -7,31 +7,44 @@
             <fieldset>
                 <div class="form-group">
 
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="grandma.name" id="name" class="form-control" placeholder="Name" required>
-                    </div>
+                  <label class="control-label" for="name">Name</label>
+                  <div class="controls">
+                      <input type="text" data-ng-model="grandma.name" id="name" class="form-control" placeholder="Grandma June" required>
+                  </div>
 
-                    <label class="control-label" for="phone">Name</label>
-                    <div class="controls">
-                        <input type="tel" data-ng-model="grandma.phone" id="name" class="form-control" placeholder="phone" required>
-                    </div>
+                 <label class="control-label" for="phone">Phone</label>
+                  <div class="controls">
+                      <input type="tel" data-ng-model="grandma.phone" id="phone" class="form-control" placeholder="(734) 8675-309" required>
+                  </div>
 
-                    <label class="control-label" for="name">address</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="grandma.address" id="name" class="form-control" placeholder="address" required>
-                    </div>
+                  <label class="control-label">Address</label>
+                  <div class="well well-sm">
+                      <label class="control-label" for="street">Street</label>
+                      <div class="controls">
+                          <input type="text" data-ng-model="grandma.address.street" id="street" class="form-control" placeholder="street" >
+                      </div>
+                      <label class="control-label" for="city">City</label>
+                      <div class="controls">
+                           <input type="text" data-ng-model="grandma.address.city" id="city" class="form-control" placeholder="city" >
+                      </div>
+                      <label class="control-label" for="state">State</label>
+                      <div class="controls">
+                           <input type="text" data-ng-model="grandma.address.state" id="state" class="form-control" placeholder="state" >
+                      </div>
+                      <label class="control-label" for="zip">Zip</label>
+                      <div class="controls">
+                           <input type="text" data-ng-model="grandma.address.zip" id="zip" class="form-control" placeholder="zip" >
+                      </div>
+                  </div>
+                 <label class="control-label" for="lat">Latitude</label>
+                  <div class="controls">
+                      <input type="text" data-ng-model="grandma.address.lat" id="lat" class="form-control" placeholder="Latitude">
+                  </div>
 
-                    <label class="control-label" for="name">lat</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="grandma.lat" id="name" class="form-control" placeholder="lat" required>
-                    </div>
-
-                    <label class="control-label" for="name">lon</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="grandma.lon" id="name" class="form-control" placeholder="lon" required>
-                    </div>
-
+                 <label class="control-label" for="lon">Longitude</label>
+                  <div class="controls">
+                      <input type="text" data-ng-model="grandma.address.lon" id="lon" class="form-control" placeholder="Longitude">
+                  </div>
 
                 </div>
                 <div class="form-group">
