@@ -14,6 +14,7 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var grandma = new Grandma(req.body);
 	grandma.user = req.user;
+	grandma.rootTreeMenu.push({name:'root',digit:0});
 
 	grandma.save(function(err) {
 		if (err) {
