@@ -11,9 +11,14 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 			var grandma = new Grandmas ({
 				name: this.name,
 				phone: this.phone,
-				address: this.address,
-				lat: this.lat,
-				lon: this.lon
+				address: {
+					street: this.address.street,
+					city: this.address.city,
+					state: this.address.state,
+					zip: this.address.zip,
+					lat: this.address.lat,
+					lon: this.address.lon
+				}
 			});
 
 			// Redirect after save
@@ -29,7 +34,7 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 
 		// Remove existing Grandma
 		$scope.remove = function(grandma) {
-			if ( grandma ) { 
+			if ( grandma ) {
 				grandma.$remove();
 
 				for (var i in $scope.grandmas) {
@@ -62,7 +67,7 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 
 		// Find existing Grandma
 		$scope.findOne = function() {
-			$scope.grandma = Grandmas.get({ 
+			$scope.grandma = Grandmas.get({
 				grandmaId: $stateParams.grandmaId
 			});
 		};
