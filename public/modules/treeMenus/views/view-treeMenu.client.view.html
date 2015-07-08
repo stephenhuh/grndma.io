@@ -1,0 +1,34 @@
+<section data-ng-controller="TreeMenusController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="treeMenu.name"></h1>
+	</div>
+
+  <div class="col-md-12">
+		<ul>
+		<li>	{{treeMenu.name}}</li>
+		<li>	Digit: {{treeMenu.digit}}</li>
+		<!-- <li> {{treeMenu.phone}}</li>
+		<li> {{treeMenu.address}}</li>
+		<li> {{treeMenu.lat}}</li>
+		<li> {{treeMenu.lon}}</li> -->
+
+		</ul>
+	</div>
+
+	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == treeMenu.user._id))">
+		<a class="btn btn-primary" href="/#!/treeMenus/{{treeMenu._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">
+			Posted on
+			<span data-ng-bind="treeMenu.created | date:'mediumDate'"></span>
+			by
+			<span data-ng-bind="treeMenu.user.displayName"></span>
+		</em>
+	</small>
+</section>

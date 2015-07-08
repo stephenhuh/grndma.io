@@ -5,12 +5,13 @@ module.exports = function(app) {
 	var grandmas = require('../../app/controllers/grandmas.server.controller');
 
 	// Grandmas Routes
+	//TODO: how to only show grandmas they created in list? 
 	app.route('/grandmas')
-		.get(grandmas.list)
+		.get(users.requiresLogin, grandmas.list)
 		.post(users.requiresLogin, grandmas.create);
 
 	app.route('/grandmas/:grandmaId')
-		.get(grandmas.read)
+		.get(users.requiresLogin, grandmas.hasAuthorization, grandmas.read)
 		.put(users.requiresLogin, grandmas.hasAuthorization, grandmas.update)
 		.delete(users.requiresLogin, grandmas.hasAuthorization, grandmas.delete);
 
