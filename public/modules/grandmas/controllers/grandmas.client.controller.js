@@ -71,5 +71,10 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 				grandmaId: $stateParams.grandmaId
 			});
 		};
+
+		$scope.addTreeMenu = function( menuName, menuDigit ) {
+			console.log($scope.grandma.rootTreeMenu[0]);
+			$scope.grandma.rootTreeMenu[0].children.push({name:menuName, digit:menuDigit});
+		};
 	}
 ]);

@@ -18,10 +18,11 @@ var treeMenuSchema = new Schema({
 //		required: 'Please fill menu name',
 		trim: true
 	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	},
+	// hopefully user isn't needed since they're all in the same doc
+	// user: {
+	// 	type: Schema.ObjectId,
+	// 	ref: 'User'
+	// },
   digit: {
     type: Number,
 		trim: true,
