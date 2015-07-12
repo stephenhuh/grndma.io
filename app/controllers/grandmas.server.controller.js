@@ -6,8 +6,27 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Grandma = mongoose.model('Grandma'),
+	TreeMenu = mongoose.model('treeMenu'),
 	_ = require('lodash');
 
+
+exports.addTreeMenu = function(req, res) {
+	console.log(req);
+	var grandma = req.grandma ;
+// splice (array, 0, treeMenu)
+	grandma.rootTreeMenu[0].children.splice(0,0, new TreeMenu({name:'asdf',digit:'234'}));
+	// grandma.rootTreeMenu[0].children.push(new TreeMenu({name:'asdf',digit:'234'}));
+	
+	grandma.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(grandma);
+		}
+	});
+};
 /**
  * Create a Grandma
  */

@@ -8,6 +8,7 @@ angular.module('grandmas').factory('Grandmas', ['$resource',
 			update: {
 				method: 'PUT'
 			}
+
 		});
 	}
 ]);

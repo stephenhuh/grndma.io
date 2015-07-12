@@ -1,8 +1,8 @@
 'use strict';
 
 // Grandmas controller
-angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas',
-	function($scope, $stateParams, $location, Authentication, Grandmas) {
+angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas', '$http',
+	function($scope, $stateParams, $location, Authentication, Grandmas, $http) {
 		$scope.authentication = Authentication;
 
 		// Create new Grandma
@@ -72,9 +72,17 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 			});
 		};
 
-		$scope.addTreeMenu = function( menuName, menuDigit ) {
+		$scope.addTreeMenuOld = function( menuName, menuDigit ) {
 			console.log($scope.grandma.rootTreeMenu[0]);
 			$scope.grandma.rootTreeMenu[0].children.push({name:menuName, digit:menuDigit});
+		};
+		
+		$scope.addTreeMenu = function() {
+			// debugger;
+			var grandma = $scope.grandma;
+			console.log(grandma.rootTreeMenu[0]);
+			$http.put('grandmas/' + grandma._id + '/addTreeMenu', grandma);
+			$location.path('grandmas/' + grandma._id);
 		};
 	}
 ]);
