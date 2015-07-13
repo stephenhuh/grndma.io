@@ -5,6 +5,8 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 	function($scope, $stateParams, $location, Authentication, Grandmas, $http) {
 		$scope.authentication = Authentication;
 
+		$scope.showGrandmaMetadata = false;
+
 		// Create new Grandma
 		$scope.create = function() {
 			// Create new Grandma object
@@ -72,17 +74,21 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 			});
 		};
 
-		$scope.addTreeMenuOld = function( menuName, menuDigit ) {
-			console.log($scope.grandma.rootTreeMenu[0]);
-			$scope.grandma.rootTreeMenu[0].children.push({name:menuName, digit:menuDigit});
+		$scope.deleteTreeMenu = function(index) {
+			
+			$scope.grandma.rootTreeMenu[0].children.splice(index, 1);
 		};
 		
-		$scope.addTreeMenu = function() {
+		$scope.addTreeMenu = function(newIndex) {
 			// debugger;
+			$scope.newTreeMenuIndex = newIndex;
+			var test = newIndex;
 			var grandma = $scope.grandma;
 			console.log(grandma.rootTreeMenu[0]);
-			$http.put('grandmas/' + grandma._id + '/addTreeMenu', grandma);
-			$location.path('grandmas/' + grandma._id);
+			//TODO: call update first
+			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: newIndex });
+			
+			$location.path('grandmas/' + grandma._id + '/edit');
 		};
 	}
 ]);

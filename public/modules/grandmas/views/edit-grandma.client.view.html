@@ -2,10 +2,16 @@
     <div class="page-header">
         <h1>Edit Grandma</h1>
     </div>
-    <div class="col-md-12">
+    
+    <div class="col-md-12" >
+      
+        <a class="btn btn-primary" data-ng-click="showGrandmaMetadata = !showGrandmaMetadata">
+        Toggle Grandma Info
+        </a>
+        
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
-                <div class="form-group">
+                <div class="form-group" ng-show="showGrandmaMetadata">
 
                   <label class="control-label" for="name">Name</label>
                   <div class="controls">
@@ -48,10 +54,16 @@
 
                 </div>
 
-                <a class="btn btn-primary" data-ng-click="addTreeMenu();">
-            		 addTreeMenu
-            		</a>
-
+                
+                <div ng-repeat="treeMenu in grandma.rootTreeMenu[0].children">
+                    Name: {{treeMenu.name}}
+                    ID: {{treeMenu._id}}
+                      <a class="btn btn-default btn-sm" data-ng-click="deleteTreeMenu($index)">Delete</a>
+                      
+                      <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu($index)">add child</a>
+                </div>
+                <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu(grandma.rootTreeMenu[0].length)">add  parent</a>
+                
 
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
