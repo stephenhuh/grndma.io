@@ -9,6 +9,41 @@
         Toggle Grandma Info
         </a>
         
+
+        <div ng-repeat="treeMenu in grandma.rootTreeMenu[0].children">
+            asdf
+          
+        </div>
+-------------------------------jkljkl
+        <div ui-tree>
+          <ol ui-tree-nodes="" ng-model="list">
+            <li ng-repeat="item in list" ui-tree-node>
+              <div ui-tree-handle>
+                ffffff
+                {{item.title}}
+              </div>
+              <ol ui-tree-nodes="" ng-model="item.items">
+                <li ng-repeat="subItem in item.items" ui-tree-node>
+                  <div ui-tree-handle>
+                    {{subItem.title}}
+                  </div>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+----------------------------------------jkljkl
+
+
+
+        </li>
+      </ol>
+    </li>
+  </ol>
+</div>
+        
+        
+        
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
                 <div class="form-group" ng-show="showGrandmaMetadata">
@@ -75,3 +110,4 @@
         </form>
     </div>
 </section>
+
