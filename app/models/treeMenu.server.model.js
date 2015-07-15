@@ -41,8 +41,8 @@ var treeMenuSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'Grandma'
 	},
-  //children can be Menus or ServiceActions
-	children: [treeMenuSchema]
+  //treeMenus are menus or endpoints
+	tree: [treeMenuSchema]
 });
 treeMenuSchema.set('toJSON', { virtuals: true });
 

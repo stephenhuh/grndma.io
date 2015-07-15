@@ -19,9 +19,9 @@ exports.addTreeMenu = function(req, res) {
 // splice (array, 0, treeMenu)
 	var newTreeMenu = new TreeMenu({name:'asdf',digit:'4'});
 	//TODO: maybe don't push it, just return it, so don't save until user calls update
-	grandma.rootTreeMenu[0].children.push(newTreeMenu);
-	// grandma.rootTreeMenu[0].children.splice(newTreeMenuIndex,0, new TreeMenu({name:'asdf',digit:'4'}));
-	// grandma.rootTreeMenu[0].children.push(new TreeMenu({name:'asdf',digit:'234'}));
+	grandma.tree.push(newTreeMenu);
+	// grandma.tree.splice(newTreeMenuIndex,0, new TreeMenu({name:'asdf',digit:'4'}));
+	// grandma.tree.push(new TreeMenu({name:'asdf',digit:'234'}));
 		
 		grandma.save(function(err) {
 			if (err) {
@@ -39,7 +39,8 @@ exports.addTreeMenu = function(req, res) {
 exports.create = function(req, res) {
 	var grandma = new Grandma(req.body);
 	grandma.user = req.user;
-	grandma.rootTreeMenu.push({name:'root',digit:0});
+	
+	//grandma.tree.push({name:'root',digit:0});
 
 	grandma.save(function(err) {
 		if (err) {

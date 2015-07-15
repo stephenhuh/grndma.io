@@ -77,35 +77,35 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 		$scope.deleteTreeMenu = function(index) {
 			//not sure if this will work past node 1
 			//probably not even needed angular magic seems to have taken over
-			$scope.grandma.rootTreeMenu[0].children.splice(index, 1);
+			$scope.grandma.tree.splice(index, 1);
 		};
 		
 		$scope.addTreeMenuOld = function(newIndex) {
 			// debugger;
 			$scope.newTreeMenuIndex = newIndex;
 			var grandma = $scope.grandma;
-		//	console.log(grandma.rootTreeMenu[0]);
 			//TODO: call update first
 			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: newIndex });
 			
 			$location.path('grandmas/' + grandma._id + '/edit');
 		};
 		
-		$scope.addTreeMenu = function(newIndex) {
-			$scope.newTreeMenuIndex = newIndex;
+		$scope.addTreeMenu = function(treeMenuItem) {
+			console.log('addtreemenu got ' + treeMenuItem);
+			debugger;
+		//	$scope.newTreeMenuIndex = newIndex;
 			var grandma = $scope.grandma;
-		//	console.log(grandma.rootTreeMenu[0]);
 			//TODO: call update first
 			//this fancy business is to get some server-side validation in the picture
-			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: newIndex }).
+			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: 0 }).
 					success(function(data, status, headers, config) {
 						console.log('yay node added ' + JSON.stringify(data));
-					grandma.rootTreeMenu[0].children.push(data);
+					grandma.tree.push(data);
 		  		}).
 		  		error(function(data, status, headers, config) {
 						console.error('add node ajax error ' + data);
 		  		});
-		
+					//TODO: push to tree[] from scope 
 			//$location.path('grandmas/' + grandma._id + '/edit');
 		};
 	}

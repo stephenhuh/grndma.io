@@ -53,11 +53,7 @@ var GrandmaSchema = new Schema({
 			trim: true
 		},
 	},
-	rootTreeMenu: [mongoose.model('treeMenu').schema]
-	//	rootTreeMenu: { type: Schema.Types.ObjectId, ref: 'treeMenu' }
-	//apparently you can't have single (non-aray) external schema definitions.
-	//but including it is the nosql way as far as I can tell.
-	//so will address as rootTreeMenu[0]
+	tree: [mongoose.model('treeMenu').schema]
 });
 
 GrandmaSchema.virtual('address.full').get(function() {

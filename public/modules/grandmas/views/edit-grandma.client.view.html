@@ -56,9 +56,11 @@
                <div ui-tree-handle class="tree-node tree-node-content">
                  <a class="btn btn-success btn-xs" ng-click="toggle(this)"> <span class="glyphicon" ng-class="{'glyphicon-chevron-right': 1==1}" </span> </a>
                    
-                 <a class=" btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
+                 <a class=" btn btn-danger btn-xs" data-nodrag ng-click="remove(menuItem)"><span
                   class="glyphicon glyphicon-remove"></span></a>
                   
+                  <a class="btn btn-primary btn-xs" data-nodrag ng-click="addTreeMenu(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
+        
                   <br>
                  Name:   <input type="text" data-ng-model="menuItem.name" > <br>
                  Digit: <input type="text" data-ng-model="menuItem.digit" > <br>
@@ -66,44 +68,48 @@
                </div>
                
                  <ol ui-tree-nodes="" ng-model="item.children">
-                   <li ng-repeat="subItem in item.children" ui-tree-node ng-include="'nodes_renderer.html'">
+
+                   <li ng-repeat="subItem in item.tree" ui-tree-node ng-include="'nodes_renderer.html'">
                      
                    </li>
                  </ol>
               </script> 
              
       <div ui-tree>
-        <ol ui-tree-nodes="" ng-model="grandma.rootTreeMenu[0].children">
-          <li ng-repeat="menuItem in grandma.rootTreeMenu[0].children" ui-tree-node ng-include="'nodes_renderer.html'">
+        
+        <ol ui-tree-nodes="" ng-model="grandma.tree">
+          <li ng-repeat="menuItem in grandma.tree" ui-tree-node ng-include="'nodes_renderer.html'">
                      
-             
-          </li>
-        </ol>
           
+          </li>
+          
+        </ol>
+        Add Root Node  
           
           
         </div>
       </script>
       ---- end---- 
 
-
+                <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu(grandma.tree.length)">add  parent</a>
 
                 
-                <div ng-repeat="treeMenu in grandma.rootTreeMenu[0].children">
+                <!-- <div ng-repeat="treeMenu in grandma.tree">
                     Name: {{treeMenu.name}}
                     ID: {{treeMenu._id}}
                       <a class="btn btn-default btn-sm" data-ng-click="deleteTreeMenu($index)">Delete</a>
                       
                       <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu($index)">add child</a>
-                </div>
-                <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu(grandma.rootTreeMenu[0].length)">add  parent</a>
+                </div> -->
+
                 
 
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>
+                
 				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
+					<strong data-ng-bind="error">Error? </strong>
 				</div>
             </fieldset>
         </form>
