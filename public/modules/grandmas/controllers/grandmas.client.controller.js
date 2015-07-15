@@ -6,50 +6,6 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 		$scope.authentication = Authentication;
 
 		$scope.showGrandmaMetadata = false;
-		$scope.list = [
-  {
-    'id': 1,
-    'title': '1. dragon-breath',
-    'items': []
-  },
-  {
-    'id': 2,
-    'title': '2. moiré-vision',
-    'items': [
-      {
-        'id': 21,
-        'title': '2.1. tofu-animation',
-        'items': [
-          {
-            'id': 211,
-            'title': '2.1.1. spooky-giraffe',
-            'items': []
-          },
-          {
-            'id': 212,
-            'title': '2.1.2. bubble-burst',
-            'items': []
-          }
-        ]
-      },
-      {
-        'id': 22,
-        'title': '2.2. barehand-atomsplitting',
-        'items': []
-      }
-    ]
-  },
-  {
-    'id': 3,
-    'title': '3. unicorn-zapper',
-    'items': []
-  },
-  {
-    'id': 4,
-    'title': '4. romantic-transclusion',
-    'items': []
-  }
-];
 
 		// Create new Grandma
 		$scope.create = function() {
@@ -119,20 +75,38 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 		};
 
 		$scope.deleteTreeMenu = function(index) {
-			
+			//not sure if this will work past node 1
+			//probably not even needed angular magic seems to have taken over
 			$scope.grandma.rootTreeMenu[0].children.splice(index, 1);
 		};
 		
-		$scope.addTreeMenu = function(newIndex) {
+		$scope.addTreeMenuOld = function(newIndex) {
 			// debugger;
 			$scope.newTreeMenuIndex = newIndex;
-			var test = newIndex;
 			var grandma = $scope.grandma;
-			console.log(grandma.rootTreeMenu[0]);
+		//	console.log(grandma.rootTreeMenu[0]);
 			//TODO: call update first
 			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: newIndex });
 			
 			$location.path('grandmas/' + grandma._id + '/edit');
+		};
+		
+		$scope.addTreeMenu = function(newIndex) {
+			$scope.newTreeMenuIndex = newIndex;
+			var grandma = $scope.grandma;
+		//	console.log(grandma.rootTreeMenu[0]);
+			//TODO: call update first
+			//this fancy business is to get some server-side validation in the picture
+			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: newIndex }).
+					success(function(data, status, headers, config) {
+						console.log('yay node added ' + JSON.stringify(data));
+					grandma.rootTreeMenu[0].children.push(data);
+		  		}).
+		  		error(function(data, status, headers, config) {
+						console.error('add node ajax error ' + data);
+		  		});
+		
+			//$location.path('grandmas/' + grandma._id + '/edit');
 		};
 	}
 ]);

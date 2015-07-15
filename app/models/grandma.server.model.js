@@ -63,6 +63,6 @@ var GrandmaSchema = new Schema({
 GrandmaSchema.virtual('address.full').get(function() {
 	return this.address.street + '\n  ' + this.address.city + ', ' + this.address.state + ' ' + this.address.zip ;
 });
-//GrandmaSchema.set('toJSON', { virtuals: true });
+GrandmaSchema.set('toJSON', { virtuals: true });
 
 mongoose.model('Grandma', GrandmaSchema);

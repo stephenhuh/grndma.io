@@ -44,5 +44,6 @@ var treeMenuSchema = new Schema({
   //children can be Menus or ServiceActions
 	children: [treeMenuSchema]
 });
+treeMenuSchema.set('toJSON', { virtuals: true });
 
 mongoose.model('treeMenu', treeMenuSchema);
