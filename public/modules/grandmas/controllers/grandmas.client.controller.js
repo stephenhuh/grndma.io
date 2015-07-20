@@ -22,6 +22,10 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 					lon: this.address.lon
 				}
 			});
+			
+			$scope.toggle = function (scope) {
+				scope.toggle();
+			};
 
 			// Redirect after save
 			grandma.$save(function(response) {
@@ -80,19 +84,43 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 			$scope.grandma.tree.splice(index, 1);
 		};
 		
-		$scope.addTreeMenuOld = function(newIndex) {
-			// debugger;
-			$scope.newTreeMenuIndex = newIndex;
-			var grandma = $scope.grandma;
+		$scope.addTreeMenu = function(scope, isRootTree) {
 			//TODO: call update first
-			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: newIndex });
-			
-			$location.path('grandmas/' + grandma._id + '/edit');
+			//I tried to design to avoid treating the root as a special case, but I have not succeeded yet... 
+			var nodeData;
+			if(isRootTree) nodeData = $scope.grandma;
+			else nodeData = scope.$modelValue;
+			nodeData.tree.push({
+				name: 'Item ' + (nodeData.tree.length + 1),
+				tree: []
+			});
+		//	$location.path('grandmas/' + grandma._id + '/edit');
 		};
 		
-		$scope.addTreeMenu = function(treeMenuItem) {
-			console.log('addtreemenu got ' + treeMenuItem);
-			debugger;
+		$scope.addService = function(scope) {
+			$http.put('grandmas/' + $scope.grandma._id + '/addService').
+				success(function(data, status, headers, config) {
+					console.log('yay service added ' + JSON.stringify(data));
+					scope.$modelValue.serviceID = data;
+				
+				}).
+				error(function(data, status, headers, config) {
+					console.error('add service ajax error ' + data);
+				});
+		};
+		
+		
+		
+		
+		
+		$scope.addTreeMenuServer = function(scope, isRootTree) {
+			//I tried to design to avoid treating the root as a special case, but I have not succeeded yet... 
+			var nodeData;
+			if(isRootTree) nodeData = $scope.grandma;
+			else nodeData = scope.$modelValue;
+			
+			console.log('addtreemenu got ' + nodeData);
+			
 		//	$scope.newTreeMenuIndex = newIndex;
 			var grandma = $scope.grandma;
 			//TODO: call update first
@@ -100,7 +128,7 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: 0 }).
 					success(function(data, status, headers, config) {
 						console.log('yay node added ' + JSON.stringify(data));
-					grandma.tree.push(data);
+					nodeData.tree.push(data);
 		  		}).
 		  		error(function(data, status, headers, config) {
 						console.error('add node ajax error ' + data);

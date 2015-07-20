@@ -47,67 +47,69 @@
                        </div>
                      </div>
 
-     ---- begin tree-----
+    
      <br><br>
       
-             
+
+        
+             <!-- data-drop-enabled = menuItem.serviceID-->
              <script type="text/ng-template" id="nodes_renderer.html">
+            
              
                <div ui-tree-handle class="tree-node tree-node-content">
-                 <a class="btn btn-success btn-xs" ng-click="toggle(this)"> <span class="glyphicon" ng-class="{'glyphicon-chevron-right': 1==1}" </span> </a>
+              
+                 <a class="btn btn-success btn-xs" ng-if="menuItem.tree && menuItem.tree.length > 0" data-nodrag ng-click="toggle(this)"> <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed}" </span> </a>
                    
                  <a class=" btn btn-danger btn-xs" data-nodrag ng-click="remove(menuItem)"><span
                   class="glyphicon glyphicon-remove"></span></a>
                   
-                  <a class="btn btn-primary btn-xs" data-nodrag ng-click="addTreeMenu(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
+                  <a class="btn btn-primary btn-xs" ng-show="!menuItem.serviceID" data-nodrag ng-click="addTreeMenu(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a> 
         
                   <br>
                  Name:   <input type="text" data-ng-model="menuItem.name" > <br>
-                 Digit: <input type="text" data-ng-model="menuItem.digit" > <br>
-                 {{menuItem._id}} <br>  <br>
+
+
+                <a class=" btn btn-warning btn-xs" ng-if="!menuItem.serviceID" data-nodrag  ng-click="addService(this)">Create Service  <span class="glyphicon glyphicon-send"></span></a>
+                
+                
+                <a class=" btn btn-success btn-xs" ng-show="((menuItem.tree.length <= 0) && menuItem.serviceID)" data-nodrag ng-click="addService(this)">Edit Service <span
+                class="glyphicon glyphicons-settings"></span></a>
+                  
+                  
+                  <br><br>
+                  
                </div>
                
-                 <ol ui-tree-nodes="" ng-model="item.children">
+                 <ol ui-tree-nodes="" ng-model="menuItem.tree" ng-class="{hidden: collapsed}">
 
-                   <li ng-repeat="subItem in item.tree" ui-tree-node ng-include="'nodes_renderer.html'">
+                   <li ng-repeat="menuItem in menuItem.tree" ui-tree-node ng-include="'nodes_renderer.html'">
                      
                    </li>
                  </ol>
               </script> 
-             
-      <div ui-tree>
         
-        <ol ui-tree-nodes="" ng-model="grandma.tree">
-          <li ng-repeat="menuItem in grandma.tree" ui-tree-node ng-include="'nodes_renderer.html'">
-                     
+        
+        <div data-ng-model="grandma.tree"> 
+          <a class="btn btn-primary" data-ng-click="addTreeMenu(this, 1)" ><span class="glyphicon glyphicon-plus"></span> Add</a>
+        </div> <br>     
+             
+        <div ui-tree>
           
-          </li>
-          
-        </ol>
-        Add Root Node  
-          
-          
+          <ol ui-tree-nodes="" ng-model="grandma.tree">
+            <li ng-repeat="menuItem in grandma.tree" ui-tree-node ng-include="'nodes_renderer.html'">
+                       
+            </li>
+          </ol>
         </div>
+
       </script>
-      ---- end---- 
 
-                <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu(grandma.tree.length)">add  parent</a>
 
-                
-                <!-- <div ng-repeat="treeMenu in grandma.tree">
-                    Name: {{treeMenu.name}}
-                    ID: {{treeMenu._id}}
-                      <a class="btn btn-default btn-sm" data-ng-click="deleteTreeMenu($index)">Delete</a>
-                      
-                      <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu($index)">add child</a>
-                </div> -->
-
-                
-
-                <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
-                </div>
-                
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-default">
+        </div>
+        
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error">Error? </strong>
 				</div>

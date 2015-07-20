@@ -10,13 +10,27 @@ var mongoose = require('mongoose'),
 	_ = require('lodash');
 
 
+exports.addService = function(req, res) {
+	var grandma= req.grandma;
+	console.log('service added');
+	grandma.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(grandma._id);
+		}
+	});
+};
+
 exports.addTreeMenu = function(req, res) {
 	//console.log(req);
 	var grandma = req.grandma ;
-	var newTreeMenuIndex = req.body.newTreeMenuIndex;
+	//var newTreeMenuIndex = req.body.newTreeMenuIndex;
+	var newName = req.body.newName;
 	console.log(grandma);
-	console.log(newTreeMenuIndex);
-// splice (array, 0, treeMenu)
+	//console.log(newTreeMenuIndex);
 	var newTreeMenu = new TreeMenu({name:'asdf',digit:'4'});
 	//TODO: maybe don't push it, just return it, so don't save until user calls update
 	grandma.tree.push(newTreeMenu);

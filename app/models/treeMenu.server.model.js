@@ -26,9 +26,14 @@ var treeMenuSchema = new Schema({
   digit: {
     type: Number,
 		trim: true,
-		required: 'please enter a digit '
+		//doing the digits automatically removes duplicate troubles
+	//	required: 'please enter a digit '
 		//todo: default auto increment
   },
+	serviceID: {
+		type: Schema.ObjectId,
+		ref: 'Service'
+	},
   IVRText: {
     type: String
 //TODO: default: name
