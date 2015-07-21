@@ -9,6 +9,10 @@ module.exports = function(app) {
 	app.route('/grandmas')
 		.get(users.requiresLogin, grandmas.list)
 		.post(users.requiresLogin, grandmas.create);
+		
+	app.route('/grandmas/:grandmaId/addTreeMenu')
+		.put(users.requiresLogin, grandmas.hasAuthorization, grandmas.addTreeMenu);
+//		.get(users.requiresLogin, grandmas.hasAuthorization, grandmas.addTreeMenu);
 
 	app.route('/grandmas/:grandmaId')
 		.get(users.requiresLogin, grandmas.hasAuthorization, grandmas.read)

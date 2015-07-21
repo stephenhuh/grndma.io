@@ -2,10 +2,54 @@
     <div class="page-header">
         <h1>Edit Grandma</h1>
     </div>
-    <div class="col-md-12">
+    
+    <div class="col-md-12" >
+      
+        <a class="btn btn-primary" data-ng-click="showGrandmaMetadata = !showGrandmaMetadata">
+        Toggle Grandma Info
+        </a>
+        
+    
+<h3> Begin Menu:</h3> 
+
+ 
+<div ui-tree>
+  <ol ui-tree-nodes="" ng-model="grandma.rootTreeMenu[0].children">
+    <li ng-repeat="menuItem in grandma.rootTreeMenu[0].children" ui-tree-node>
+      <div ui-tree-handle class="tree-node tree-node-content">
+        
+      <a class="btn btn-success btn-xs" ng-click="toggle(this)"> <span class="glyphicon" ng-class="{'glyphicon-chevron-right': 1==1}" </span> </a>
+        
+      <a class=" btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
+       class="glyphicon glyphicon-remove"></span></a>
+       
+       <br>
+      Name:   <input type="text" data-ng-model="menuItem.name" > <br>
+      Digit: <input type="text" data-ng-model="menuItem.digit" > <br>
+      {{menuItem._id}} <br>  <br>
+      
+      </div>
+      <ol ui-tree-nodes="" ng-model="item.children">
+        <li ng-repeat="subItem in item.children" ui-tree-node>
+          <div ui-tree-handle>
+            {{subItem.name}}
+          </div>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</div>
+
+
+
+<h3> end menu</h3> 
+
+        
+        
+        
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
-                <div class="form-group">
+                <div class="form-group" ng-show="showGrandmaMetadata">
 
                   <label class="control-label" for="name">Name</label>
                   <div class="controls">
@@ -47,6 +91,18 @@
                   </div>
 
                 </div>
+
+                
+                <div ng-repeat="treeMenu in grandma.rootTreeMenu[0].children">
+                    Name: {{treeMenu.name}}
+                    ID: {{treeMenu._id}}
+                      <a class="btn btn-default btn-sm" data-ng-click="deleteTreeMenu($index)">Delete</a>
+                      
+                      <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu($index)">add child</a>
+                </div>
+                <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu(grandma.rootTreeMenu[0].length)">add  parent</a>
+                
+
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>
@@ -57,3 +113,4 @@
         </form>
     </div>
 </section>
+

@@ -1,9 +1,55 @@
 'use strict';
 
 // Grandmas controller
-angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas',
-	function($scope, $stateParams, $location, Authentication, Grandmas) {
+angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas', '$http',
+	function($scope, $stateParams, $location, Authentication, Grandmas, $http) {
 		$scope.authentication = Authentication;
+
+		$scope.showGrandmaMetadata = false;
+		$scope.list = [
+  {
+    'id': 1,
+    'title': '1. dragon-breath',
+    'items': []
+  },
+  {
+    'id': 2,
+    'title': '2. moiré-vision',
+    'items': [
+      {
+        'id': 21,
+        'title': '2.1. tofu-animation',
+        'items': [
+          {
+            'id': 211,
+            'title': '2.1.1. spooky-giraffe',
+            'items': []
+          },
+          {
+            'id': 212,
+            'title': '2.1.2. bubble-burst',
+            'items': []
+          }
+        ]
+      },
+      {
+        'id': 22,
+        'title': '2.2. barehand-atomsplitting',
+        'items': []
+      }
+    ]
+  },
+  {
+    'id': 3,
+    'title': '3. unicorn-zapper',
+    'items': []
+  },
+  {
+    'id': 4,
+    'title': '4. romantic-transclusion',
+    'items': []
+  }
+];
 
 		// Create new Grandma
 		$scope.create = function() {
@@ -70,6 +116,23 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 			$scope.grandma = Grandmas.get({
 				grandmaId: $stateParams.grandmaId
 			});
+		};
+
+		$scope.deleteTreeMenu = function(index) {
+			
+			$scope.grandma.rootTreeMenu[0].children.splice(index, 1);
+		};
+		
+		$scope.addTreeMenu = function(newIndex) {
+			// debugger;
+			$scope.newTreeMenuIndex = newIndex;
+			var test = newIndex;
+			var grandma = $scope.grandma;
+			console.log(grandma.rootTreeMenu[0]);
+			//TODO: call update first
+			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: newIndex });
+			
+			$location.path('grandmas/' + grandma._id + '/edit');
 		};
 	}
 ]);
