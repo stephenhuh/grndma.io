@@ -52,6 +52,11 @@ ApplicationConfiguration.registerModule('core');
 ApplicationConfiguration.registerModule('grandmas');
 'use strict';
 
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('treeMenus');
+
+'use strict';
+
 // Use Application configuration module to register a new module
 ApplicationConfiguration.registerModule('users');
 'use strict';
@@ -302,9 +307,11 @@ angular.module('grandmas').config(['$stateProvider',
 'use strict';
 
 // Grandmas controller
-angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas',
-	function($scope, $stateParams, $location, Authentication, Grandmas) {
+angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas', '$http',
+	function($scope, $stateParams, $location, Authentication, Grandmas, $http) {
 		$scope.authentication = Authentication;
+
+		$scope.showGrandmaMetadata = false;
 
 		// Create new Grandma
 		$scope.create = function() {
@@ -312,10 +319,19 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 			var grandma = new Grandmas ({
 				name: this.name,
 				phone: this.phone,
-				address: this.address,
-				lat: this.lat,
-				lon: this.lon
+				address: {
+					street: this.address.street,
+					city: this.address.city,
+					state: this.address.state,
+					zip: this.address.zip,
+					lat: this.address.lat,
+					lon: this.address.lon
+				}
 			});
+			
+			$scope.toggle = function (scope) {
+				scope.toggle();
+			};
 
 			// Redirect after save
 			grandma.$save(function(response) {
@@ -330,7 +346,7 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 
 		// Remove existing Grandma
 		$scope.remove = function(grandma) {
-			if ( grandma ) { 
+			if ( grandma ) {
 				grandma.$remove();
 
 				for (var i in $scope.grandmas) {
@@ -363,9 +379,71 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 
 		// Find existing Grandma
 		$scope.findOne = function() {
-			$scope.grandma = Grandmas.get({ 
+			$scope.grandma = Grandmas.get({
 				grandmaId: $stateParams.grandmaId
 			});
+		};
+
+		$scope.deleteTreeMenu = function(index) {
+			//not sure if this will work past node 1
+			//probably not even needed angular magic seems to have taken over
+			$scope.grandma.tree.splice(index, 1);
+		};
+		
+		$scope.addTreeMenu = function(scope, isRootTree) {
+			//TODO: call update first
+			//I tried to design to avoid treating the root as a special case, but I have not succeeded yet... 
+			var nodeData;
+			if(isRootTree) nodeData = $scope.grandma;
+			else nodeData = scope.$modelValue;
+			nodeData.tree.push({
+				name: 'Item ' + (nodeData.tree.length + 1),
+				tree: []
+			});
+		//	$location.path('grandmas/' + grandma._id + '/edit');
+		};
+		
+		$scope.addService = function(scope) {
+			$http.put('grandmas/' + $scope.grandma._id + '/addService').
+				success(function(data, status, headers, config) {
+					console.log('yay service added ' + JSON.stringify(data));
+				//	scope.$modelValue.serviceID ='fasdfasdf';
+					scope.$modelValue.serviceID = data._id;
+					$scope.grandma.apiServices.push(data);
+					console.log(scope.$modelValue.serviceID);
+					console.log(scope.$modelValue);
+				}).
+				error(function(data, status, headers, config) {
+					console.error('add service ajax error ' + data);
+				});
+		};
+		
+		
+		
+		
+		
+		$scope.addTreeMenuServer = function(scope, isRootTree) {
+			//I tried to design to avoid treating the root as a special case, but I have not succeeded yet... 
+			var nodeData;
+			if(isRootTree) nodeData = $scope.grandma;
+			else nodeData = scope.$modelValue;
+			
+			console.log('addtreemenu got ' + nodeData);
+			
+		//	$scope.newTreeMenuIndex = newIndex;
+			var grandma = $scope.grandma;
+			//TODO: call update first
+			//this fancy business is to get some server-side validation in the picture
+			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: 0 }).
+					success(function(data, status, headers, config) {
+						console.log('yay node added ' + JSON.stringify(data));
+					nodeData.tree.push(data);
+		  		}).
+		  		error(function(data, status, headers, config) {
+						console.error('add node ajax error ' + data);
+		  		});
+					//TODO: push to tree[] from scope 
+			//$location.path('grandmas/' + grandma._id + '/edit');
 		};
 	}
 ]);
@@ -376,6 +454,128 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 angular.module('grandmas').factory('Grandmas', ['$resource',
 	function($resource) {
 		return $resource('grandmas/:grandmaId', { grandmaId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+
+		});
+	}
+]);
+'use strict';
+
+// Configuring the Articles module
+angular.module('treeMenus').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('topbar', 'TreeMenus', 'treeMenus', 'dropdown', '/treeMenus(/create)?');
+		Menus.addSubMenuItem('topbar', 'treeMenus', 'List TreeMenus', 'treeMenus');
+		Menus.addSubMenuItem('topbar', 'treeMenus', 'New TreeMenu', 'treeMenus/create');
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('treeMenus').config(['$stateProvider',
+	function($stateProvider) {
+		// TreeMenus state routing
+		$stateProvider.
+		state('listTreeMenus', {
+			url: '/treeMenus',
+			templateUrl: 'modules/treeMenus/views/list-treeMenus.client.view.html'
+		}).
+		state('createTreeMenu', {
+			url: '/treeMenus/create',
+			templateUrl: 'modules/treeMenus/views/create-treeMenu.client.view.html'
+		}).
+		state('viewTreeMenu', {
+			url: '/treeMenus/:treeMenuId',
+			templateUrl: 'modules/treeMenus/views/view-treeMenu.client.view.html'
+		}).
+		state('editTreeMenu', {
+			url: '/treeMenus/:treeMenuId/edit',
+			templateUrl: 'modules/treeMenus/views/edit-treeMenu.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// TreeMenus controller
+angular.module('treeMenus').controller('TreeMenusController', ['$scope', '$stateParams', '$location', 'Authentication', 'TreeMenus',
+	function($scope, $stateParams, $location, Authentication, TreeMenus) {
+		$scope.authentication = Authentication;
+
+		// Create new TreeMenu
+		$scope.create = function() {
+			// Create new TreeMenu object
+			var treeMenu = new TreeMenus ({
+				name: this.name,
+				digit: this.digit,
+				spokenName: this.spokenName
+				// address: this.address,
+				// lat: this.lat,
+				// lon: this.lon
+			});
+
+			// Redirect after save
+			treeMenu.$save(function(response) {
+				$location.path('treeMenus/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing TreeMenu
+		$scope.remove = function(treeMenu) {
+			if ( treeMenu ) {
+				treeMenu.$remove();
+
+				for (var i in $scope.treeMenus) {
+					if ($scope.treeMenus [i] === treeMenu) {
+						$scope.treeMenus.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.treeMenu.$remove(function() {
+					$location.path('treeMenus');
+				});
+			}
+		};
+
+		// Update existing TreeMenu
+		$scope.update = function() {
+			var treeMenu = $scope.treeMenu;
+
+			treeMenu.$update(function() {
+				$location.path('treeMenus/' + treeMenu._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of TreeMenus
+		$scope.find = function() {
+			$scope.treeMenus = TreeMenus.query();
+		};
+
+		// Find existing TreeMenu
+		$scope.findOne = function() {
+			$scope.treeMenu = TreeMenus.get({
+				treeMenuId: $stateParams.treeMenuId
+			});
+		};
+	}
+]);
+
+'use strict';
+
+//TreeMenus service used to communicate TreeMenus REST endpoints
+angular.module('treeMenus').factory('TreeMenus', ['$resource',
+	function($resource) {
+		return $resource('treeMenus/:treeMenuId', { treeMenuId: '@_id'
 		}, {
 			update: {
 				method: 'PUT'
