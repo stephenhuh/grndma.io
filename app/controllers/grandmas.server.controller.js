@@ -7,24 +7,28 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Grandma = mongoose.model('Grandma'),
 	TreeMenu = mongoose.model('treeMenu'),
+  ApiService = mongoose.model('apiService'),
 	_ = require('lodash');
 
 
 exports.addService = function(req, res) {
 	var grandma= req.grandma;
-	console.log('service added');
+  var newService = new ApiService();
+  //grandma.apiServices.push(newService);
+	console.log('service added ' + newService);
 	grandma.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(grandma._id);
+			res.jsonp(newService);
 		}
 	});
 };
 
 exports.addTreeMenu = function(req, res) {
+  //currently NOT used
 	//console.log(req);
 	var grandma = req.grandma ;
 	//var newTreeMenuIndex = req.body.newTreeMenuIndex;
@@ -58,6 +62,7 @@ exports.create = function(req, res) {
 
 	grandma.save(function(err) {
 		if (err) {
+      console.log(err);
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});

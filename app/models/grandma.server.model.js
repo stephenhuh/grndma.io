@@ -6,6 +6,8 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 require('./treeMenu.server.model.js');
+require('./apiService.server.model.js');
+
 /**
  * Grandma Schema
  */
@@ -53,7 +55,8 @@ var GrandmaSchema = new Schema({
 			trim: true
 		},
 	},
-	tree: [mongoose.model('treeMenu').schema]
+	tree: [mongoose.model('treeMenu').schema],
+  apiServices: [mongoose.model('apiService').schema]
 });
 
 GrandmaSchema.virtual('address.full').get(function() {

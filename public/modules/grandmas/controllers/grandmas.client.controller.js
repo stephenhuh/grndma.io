@@ -101,8 +101,11 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 			$http.put('grandmas/' + $scope.grandma._id + '/addService').
 				success(function(data, status, headers, config) {
 					console.log('yay service added ' + JSON.stringify(data));
-					scope.$modelValue.serviceID = data;
-				
+				//	scope.$modelValue.serviceID ='fasdfasdf';
+					scope.$modelValue.serviceID = data._id;
+					$scope.grandma.apiServices.push(data);
+					console.log(scope.$modelValue.serviceID);
+					console.log(scope.$modelValue);
 				}).
 				error(function(data, status, headers, config) {
 					console.error('add service ajax error ' + data);
