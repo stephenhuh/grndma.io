@@ -12,3 +12,37 @@
 	right: 10px;
 	position: absolute;
 }
+
+fieldset {
+	padding-top:30px;
+	padding-bottom:10px;
+}
+
+.input-group {
+	padding-bottom:10px;
+}
+
+.form-signin{
+	background-color: #F0F0F0;
+	max-width: 350px;
+	margin: 0 auto;
+	padding: 15px 25px 45px;
+	-moz-box-shadow:    inset 0 -3px 0 rgba(0,0,0,.15);
+	-webkit-box-shadow: inset 0 -3px 0 rgba(0,0,0,.15);
+	box-shadow:         inset 0 -3px 0 rgba(0,0,0,.15);
+}
+
+.form-group {
+	max-width: 300px;
+}
+
+.input-group {
+	max-width: 300px;
+}
+
+.btn-submit{
+	color: white;
+	background-color: #9DD8D4;
+	text-align:center;
+	width:100%
+}

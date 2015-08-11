@@ -1,45 +1,53 @@
 <section class="row" data-ng-controller="AuthenticationController">
-	<h3 class="col-md-12 text-center">Sign in using a social media account</h3>
-	<div class="col-md-12 text-center">
-		<a href="/auth/facebook" class="undecorated-link">
-			<img src="/modules/users/img/buttons/facebook.png">
-		</a>
-		<a href="/auth/twitter" class="undecorated-link">
-			<img src="/modules/users/img/buttons/twitter.png">
-		</a>
-		<a href="/auth/google" class="undecorated-link">
-			<img src="/modules/users/img/buttons/google.png">
-		</a>
-		<a href="/auth/linkedin" class="undecorated-link">
-			<img src="/modules/users/img/buttons/linkedin.png">
-		</a>
-		<a href="/auth/github" class="undecorated-link">
-			<img src="/modules/users/img/buttons/github.png">
-		</a>
-	</div>
-	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-		<br></br>
-		<form data-ng-submit="signin()" class="signin form-horizontal" autocomplete="off">
-			<fieldset>
-				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
-				</div>
-				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
-				</div>
-				<div class="text-center form-group">
-					<button type="submit" class="btn btn-primary">Sign in</button>&nbsp; or&nbsp;
-					<a href="/#!/signup">Sign up</a>
-				</div>
-				<div class="forgot-password">
-					<a href="/#!/password/forgot">Forgot your password?</a>
-				</div>
-				<div data-ng-show="error" class="text-center text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-			</fieldset>
-		</form>
+	<div class="container">
+			<br></br>
+			<form data-ng-submit="signin()" class="form-signin" autocomplete="off">
+				<fieldset>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-user"></span>
+						</span>
+						<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-lock"></span>
+						</span>
+						<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
+					</div>
+					<br>
+					<div class="text-center">
+						<button type="submit" class="btn btn-submit">Sign in</button>
+					</div>
+					<br>
+					<div class="text-center">
+						<a href="/auth/facebook" class="btn btn-social-icon btn-facebook">
+					    <i class="fa fa-facebook"></i>
+					  </a>
+						<a href="/auth/twitter" class="btn btn-social-icon btn-twitter">
+							<i class="fa fa-twitter"></i>
+						</a>
+						<a href="/auth/google" class="btn btn-social-icon btn-google">
+							<i class="fa fa-google"></i>
+						</a>
+						<a href="/auth/linkedin" class="btn btn-social-icon btn-linkedin">
+							<i class="fa fa-linkedin"></i>
+						</a>
+						<a href="/auth/github" class="btn btn-social-icon btn-github">
+							<i class="fa fa-github"></i>
+						</a>
+					</div>
+					<br>
+					<div class="text-center">
+						<a href="/#!/password/forgot">Forgot your password?</a>
+					</div>
+					<div class="text-center">
+					  <a href="/#!/signup">Not registered?</a>
+					</div>
+					<div data-ng-show="error" class="text-center text-danger">
+						<strong data-ng-bind="error"></strong>
+					</div>
+				</fieldset>
+			</form>
 	</div>
 </section>

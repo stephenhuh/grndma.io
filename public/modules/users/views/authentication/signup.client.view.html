@@ -1,49 +1,47 @@
 <section class="row" data-ng-controller="AuthenticationController">
-	<h3 class="col-md-12 text-center">Sign up using a social media account</h3>
-	<div class="col-md-12 text-center">
-		<a href="/auth/facebook" class="undecorated-link">
-			<img src="/modules/users/img/buttons/facebook.png">
-		</a>
-		<a href="/auth/twitter" class="undecorated-link">
-			<img src="/modules/users/img/buttons/twitter.png">
-		</a>
-		<a href="/auth/google" class="undecorated-link">
-			<img src="/modules/users/img/buttons/google.png">
-		</a>
-		<a href="/auth/linkedin" class="undecorated-link">
-			<img src="/modules/users/img/buttons/linkedin.png">
-		</a>
-		<a href="/auth/github" class="undecorated-link">
-			<img src="/modules/users/img/buttons/github.png">
-		</a>
-	</div>
-	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
+	<div class="container container-form">
 		<br></br>
-		<form name="userForm" data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">
+		<form name="userForm" data-ng-submit="signup()" class="form-signin" novalidate autocomplete="off">
 			<fieldset>
 				<div class="form-group">
-					<label for="firstName">First Name</label>
 					<input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="credentials.firstName" placeholder="First Name">
 				</div>
 				<div class="form-group">
-					<label for="lastName">Last Name</label>
 					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="credentials.lastName" placeholder="Last Name">
 				</div>
 				<div class="form-group">
-					<label for="email">Email</label>
 					<input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="Email">
 				</div>
 				<div class="form-group">
-					<label for="username">Username</label>
 					<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
 				</div>
 				<div class="form-group">
-					<label for="password">Password</label>
 					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
 				</div>
-				<div class="text-center form-group">
-					<button type="submit" class="btn btn-large btn-primary">Sign up</button>&nbsp; or&nbsp;
-					<a href="/#!/signin" class="show-signup">Sign in</a>
+				<div class="text-center">
+					<button type="submit" class="btn btn-submit">Sign up</button>
+				</div>
+				<br>
+				<div class="text-center">
+					<a href="/auth/facebook" class="btn btn-social-icon btn-facebook">
+						<i class="fa fa-facebook"></i>
+					</a>
+					<a href="/auth/twitter" class="btn btn-social-icon btn-twitter">
+						<i class="fa fa-twitter"></i>
+					</a>
+					<a href="/auth/google" class="btn btn-social-icon btn-google">
+						<i class="fa fa-google"></i>
+					</a>
+					<a href="/auth/linkedin" class="btn btn-social-icon btn-linkedin">
+						<i class="fa fa-linkedin"></i>
+					</a>
+					<a href="/auth/github" class="btn btn-social-icon btn-github">
+						<i class="fa fa-github"></i>
+					</a>
+				</div>
+				<br>
+				<div class="text-center">
+					<a href="/#!/signin" class="show-signup">Already have an account?</a>
 				</div>
 				<div data-ng-show="error" class="text-center text-danger">
 					<strong data-ng-bind="error"></strong>

@@ -1,42 +1,34 @@
 <head>
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD -->
 	<!--<link rel="stylesheet" type="text/css" href="/public/modules/core/css/core.css"></link> -->
-=======
+<!-- ======= -->
 	<!-- <link rel="stylesheet" type="text/css" href="css/home.client.view.css"></link> -->
->>>>>>> c44a1f069b330fc6fed4756f2a6f95a67fb14b31
+<!-- >>>>>>> c44a1f069b330fc6fed4756f2a6f95a67fb14b31 -->
 </head>
-<div class="dimscreen">
-</div>
-<section data-ng-controller="HomeController">
-	<div class="fullscreen-bg">
-		<div class="fullscreen-bg_video">
-			<video loop muted autoplay class="fullscreen-bg_video">
-				<source src="img/bg.mp4" type="video/mp4">
-			</video>
-		</div>
-	</div>
-	<div class="container">
-	  <div class="row text-center">
-			<img src="img/grndma.png">
-		  </img>
-		</div>
-		<div class="container">
-	  		<div class="row">
-	    		<div class="col-md-10 col-md-offset-1 text-center">
-		    		<h1> Services and applications at the push of a button </h1>
-  	  		</div>
-    		</div>
+
+<body>
+	<section data-ng-controller="HomeController">
+		<div class="row">
+			<div class="text-center">
+				<img class="logo" src="img/red.png">
+				</img>
 			</div>
-			<br></br>
-			<div class="row">
-				<div class="col-md-4">
-					<h2>
+		</div>
+		<div class="row">
+			<div class="text-center">
+	    	<h1> Services and applications at the push of a button </h1>
+	  	</div>
+	  </div>
+		<br>
+		<div class="row">
+			<div class="col-md-4">
+				<h2>
 					<strong>G</strong>enerate
 				</h2>
 				<h4>a catered profile for your elderly loved one. Sign up for a free account today, and get started right away.</h3>
 			</div>
 			<div class="col-md-4">
-					<h2>
+				<h2>
 					<strong>M</strong>ake
 				</h2>
 				<h4>a personalized phone tree that does exactly what your elderly loved one wants and needs, down to their favorite pizza toppings.</h3>
@@ -45,21 +37,28 @@
 				<h2>
 					<strong>A</strong>ccess
 				</h2>
-				<h4>the convenience of life-changing technology without the inconvenience of dealing with complex interfaces.</h3>
+			<h4>the convenience of life-changing technology without the inconvenience of dealing with complex interfaces.</h3>
 			</div>
 		</div>
 		<br></br>
-		<div class="row">
+		<div class="row" ng-show ="!authentication.user">
 		  <div class="col-md-2 col-md-offset-4 text-center">
 			  <a href="/#!/signin">
 					<button class="btn btn-lg btn-default">Sign in</button>
 				</a>
 			</div>
 			<div class="col-md-2 text-center">
-			  <a href="/#!signup">
+			  <a href="/#!/signup">
 					<button class="btn btn-lg btn-primary">Sign up</button>
 				</a>
 		  </div>
 		</div>
-	</container>
-</section>
+		<div class="row" ng-show = "authentication.user">
+			<div class="col-md-4 col-md-offset-4 text-center">
+				<a href = "/#!/grandmas/create">
+					<button class="btn-lg btn-danger">Get started</button>
+				</a>
+			</div>
+		</div>
+	</section>
+</body>

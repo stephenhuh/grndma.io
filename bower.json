@@ -11,6 +11,7 @@
     "angular-bootstrap": "~0.12.0",
     "angular-ui-utils": "~0.1.1",
     "angular-ui-router": "~0.2.11",
-    "angular-ui-tree": "~2.6.0"
+    "angular-ui-tree": "~2.6.0",
+    "bootstrap-social": "~4.9.1"
   }
 }

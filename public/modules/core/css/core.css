@@ -1,35 +1,47 @@
+*{ margin: 0; padding: 0;}
+
+.btn {
+	-webkit-transition: none;
+	transition: none;
+	-moz-box-shadow:    inset 0 -3px 0 rgba(0,0,0,.15);
+	-webkit-box-shadow: inset 0 -3px 0 rgba(0,0,0,.15);
+	box-shadow:         inset 0 -3px 0 rgba(0,0,0,.15);
+}
+
+body {
+	background-color: #ff7a7c;
+}
+
 .navbar {
 	background-color: transparent;
-	background:rgba(0,0,0,0.5);
+	background: #2f4154;
 	border-color: transparent;
+	-moz-box-shadow:    inset 0 -3px 0 rgba(0,0,0,.15);
+	-webkit-box-shadow: inset 0 -3px 0 rgba(0,0,0,.15);
+	box-shadow:         inset 0 -3px 0 rgba(0,0,0,.15);
 }
 
-.dimscreen {
-    position:fixed;
-    padding:0;
-    margin:0;
-
-    top:0;
-    left:0;
-
-    width: 100%;
-    height: 100%;
-    background:rgba(0,0,0,0.1);
-}
-.nav.navbar-nav.navbar-right li a {
+.navbar-header > .navbar-brand {
     color: white;
 }
 
-.nav.navbar-header li a {
-	color: white;
+
+.dropdown-menu {
+	background-color: #2f4154;
+}
+
+.dropdown-toggle span{
+	color:white;
 }
 
 .content {
 	margin-top: 50px;
 }
+
 .undecorated-link:hover {
 	text-decoration: none;
 }
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
 	display: none !important;
 }
@@ -37,8 +49,14 @@
 .ng-invalid.ng-dirty {
 	border-color: #FA787E;
 }
+
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
+}
+
+.logo{
+	height: 20%;
+	width: 20%;
 }
 
 .browsehappy.jumbotron.hide,
@@ -47,35 +65,7 @@ body.ng-cloak
 	display: block;
 }
 
-p, h1, h2, h4 {color: white}
-
-.fullscreen-bg {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  overflow: hidden;
-  z-index: -100;
-}
-.fullscreen-bg_video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-@media (min-aspect-ratio: 16/9) {
-  .fullscreen-bg_video {
-    height: 300%;
-    top: -100%;
-  }
-}
-
-@media (max-aspect-ratio: 16/9) {
-  .fullscreen-bg_video {
-    width: 300%;
-    left: -100%;
-  }
+p, h1, h2, h4 {
+	font-family: Helvetica,Arial,sans-serif;
+	color: white;
 }
