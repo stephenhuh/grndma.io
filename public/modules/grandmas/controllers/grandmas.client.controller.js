@@ -4,7 +4,6 @@
 angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas', '$http',
 	function($scope, $stateParams, $location, Authentication, Grandmas, $http) {
 		$scope.authentication = Authentication;
-
 		$scope.showGrandmaMetadata = false;
 		$scope.list = [
   {
@@ -119,10 +118,10 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 		};
 
 		$scope.deleteTreeMenu = function(index) {
-			
+
 			$scope.grandma.rootTreeMenu[0].children.splice(index, 1);
 		};
-		
+
 		$scope.addTreeMenu = function(newIndex) {
 			// debugger;
 			$scope.newTreeMenuIndex = newIndex;
@@ -131,7 +130,7 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 			console.log(grandma.rootTreeMenu[0]);
 			//TODO: call update first
 			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: newIndex });
-			
+
 			$location.path('grandmas/' + grandma._id + '/edit');
 		};
 	}
