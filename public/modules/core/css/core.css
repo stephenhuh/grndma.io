@@ -96,11 +96,12 @@ fieldset {
 }
 
 .form-group {
-	max-width: 300px;
+	max-width: 325px;
 }
 
 .input-group {
-	max-width: 300px;
+	max-width:325px;
+	width:300px;
 }
 
 .btn-submit{
