@@ -1,6 +1,5 @@
-<section class="row" data-ng-controller="AuthenticationController">
-	<div class="container container-form">
-		<br></br>
+<section data-ng-controller="AuthenticationController">
+	<div >
 		<form name="userForm" data-ng-submit="signup()" class="form" novalidate autocomplete="off">
 			<fieldset>
 				<div class="form-group">
@@ -41,7 +40,7 @@
 				</div>
 				<br>
 				<div class="text-center">
-					<a href="/#!/signin" class="show-signup">Already have an account?</a>
+					<a ui-sref="signin" class="show-signup" ng-click="$close()">Already have an account?</a>
 				</div>
 				<div data-ng-show="error" class="text-center text-danger">
 					<strong data-ng-bind="error"></strong>

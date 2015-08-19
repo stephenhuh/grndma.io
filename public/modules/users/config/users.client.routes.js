@@ -1,8 +1,8 @@
 'use strict';
-
 // Setting up route
 angular.module('users').config(['$stateProvider',
 	function($stateProvider) {
+		var dialog;
 		// Users state routing
 		$stateProvider.
 		state('profile', {
@@ -19,11 +19,47 @@ angular.module('users').config(['$stateProvider',
 		}).
 		state('signup', {
 			url: '/signup',
-			templateUrl: 'modules/users/views/authentication/signup.client.view.html'
+			templateUrl: 'modules/core/views/home.client.view.html',
+			onEnter: ['$stateParams', '$state', '$modal', '$resource', function($stateParams, $state, $modal, $resource) {
+				dialog = $modal.open({
+						templateUrl: 'modules/users/views/authentication/signup.client.view.html',
+						size: 'sm'
+				});
+				dialog.result.then(
+					function() {
+						$state.go('home');
+					},
+					function() {
+						$state.go('home');
+					},
+					function() {}
+				);
+			}],
+			onExit: ['$stateParams', '$state', '$modal', '$resource', function($stateParams, $state, $modal, $resource) {
+				dialog.close();
+			}]
 		}).
 		state('signin', {
 			url: '/signin',
-			templateUrl: 'modules/users/views/authentication/signin.client.view.html'
+			templateUrl: 'modules/core/views/home.client.view.html',
+			onEnter: ['$stateParams', '$state', '$modal', '$resource', function($stateParams, $state, $modal, $resource) {
+        dialog = $modal.open({
+						templateUrl: 'modules/users/views/authentication/signin.client.view.html',
+						size: 'sm'
+			  });
+				dialog.result.then(
+					function() {
+						$state.go('home');
+					},
+					function() {
+						$state.go('home');
+					},
+					function() {}
+        );
+    	}],
+			onExit: ['$stateParams', '$state', '$modal', '$resource', function($stateParams, $state, $modal, $resource) {
+				dialog.close();
+			}]
 		}).
 		state('forgot', {
 			url: '/password/forgot',

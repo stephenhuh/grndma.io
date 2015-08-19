@@ -87,7 +87,6 @@ fieldset {
 
 .form {
 	background-color: #F0F0F0;
-	max-width: 350px;
 	margin: 0 auto;
 	padding: 15px 25px 45px;
 	-moz-box-shadow:    inset 0 -3px 0 rgba(0,0,0,.15);
@@ -95,14 +94,8 @@ fieldset {
 	box-shadow:         inset 0 -3px 0 rgba(0,0,0,.15);
 }
 
-.form-group {
-	max-width: 325px;
-}
 
-.input-group {
-	max-width:325px;
-	width:300px;
-}
+
 
 .btn-submit{
 	color: white;

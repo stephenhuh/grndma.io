@@ -1,6 +1,5 @@
-<section class="row" data-ng-controller="AuthenticationController">
-	<div class="container">
-			<br></br>
+<section data-ng-controller="AuthenticationController">
+	<div>
 			<form data-ng-submit="signin()" class="form" autocomplete="off">
 				<fieldset>
 					<div class="input-group">
@@ -21,7 +20,7 @@
 					</div>
 					<br>
 					<div class="text-center">
-						<a href="/auth/facebook" class="btn btn-social-icon btn-facebook">
+						<a ref="/auth/facebook" class="btn btn-social-icon btn-facebook">
 					    <i class="fa fa-facebook"></i>
 					  </a>
 						<a href="/auth/twitter" class="btn btn-social-icon btn-twitter">
@@ -39,10 +38,10 @@
 					</div>
 					<br>
 					<div class="text-center">
-						<a href="/#!/password/forgot">Forgot your password?</a>
+						<a ui-sref="forgot"  ng-click="$close()">Forgot your password?</a>
 					</div>
 					<div class="text-center">
-					  <a href="/#!/signup">Not registered?</a>
+					  <a ui-sref="signup" ng-click="$close()">Not registered?</a>
 					</div>
 					<div data-ng-show="error" class="text-center text-danger">
 						<strong data-ng-bind="error"></strong>
