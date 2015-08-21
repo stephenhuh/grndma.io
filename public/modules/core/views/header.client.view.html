@@ -6,7 +6,7 @@
 <div class="container" data-ng-controller="HeaderController">
 	<div class="navbar navbar-fixed-top navbar-inverse" data-ng-if="authentication.user">
 		<div class="navbar-header">
-			<a href="/#!/" class="navbar-brand">grndma</a>
+			<a ui-sref="home" class="navbar-brand">grndma</a>
 		</div>
 		<nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
 			<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
@@ -25,18 +25,18 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
 				<li class="dropdown" dropdown>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" dropdown-toggle>
+					<a class="dropdown-toggle" data-toggle="dropdown" dropdown-toggle>
 								<span data-ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="/#!/settings/profile">Edit Profile</a>
+							<a ui-sref="profile">Edit Profile</a>
 						</li>
 						<li>
-							<a href="/#!/settings/accounts">Manage Social Accounts</a>
+							<a ui-sref="accounts">Manage Social Accounts</a>
 						</li>
 						<li data-ng-show="authentication.user.provider === 'local'">
-							<a href="/#!/settings/password">Change Password</a>
+							<a ui-sref="password">Change Password</a>
 						</li>
 						<li class="divider"></li>
 						<li>
