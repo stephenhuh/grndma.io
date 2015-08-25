@@ -2,115 +2,53 @@
     <div class="page-header">
         <h1>Edit Grandma</h1>
     </div>
-    
-    <div class="col-md-12" >
-      
-        <a class="btn btn-primary" data-ng-click="showGrandmaMetadata = !showGrandmaMetadata">
-        Toggle Grandma Info
-        </a>
-        
-    
-<h3> Begin Menu:</h3> 
+    <form class="form-horizontal" data-ng-submit="update()" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label" for="name">Name</label>
+                <div class="controls">
+                    <input type="text" data-ng-model="grandma.name" id="name" class="form-control" placeholder="Grandma June" required>
+                </div>
 
- 
-<div ui-tree>
-  <ol ui-tree-nodes="" ng-model="grandma.rootTreeMenu[0].children">
-    <li ng-repeat="menuItem in grandma.rootTreeMenu[0].children" ui-tree-node>
-      <div ui-tree-handle class="tree-node tree-node-content">
-        
-      <a class="btn btn-success btn-xs" ng-click="toggle(this)"> <span class="glyphicon" ng-class="{'glyphicon-chevron-right': 1==1}" </span> </a>
-        
-      <a class=" btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
-       class="glyphicon glyphicon-remove"></span></a>
-       
-       <br>
-      Name:   <input type="text" data-ng-model="menuItem.name" > <br>
-      Digit: <input type="text" data-ng-model="menuItem.digit" > <br>
-      {{menuItem._id}} <br>  <br>
-      
-      </div>
-      <ol ui-tree-nodes="" ng-model="item.children">
-        <li ng-repeat="subItem in item.children" ui-tree-node>
-          <div ui-tree-handle>
-            {{subItem.name}}
-          </div>
-        </li>
-      </ol>
-    </li>
-  </ol>
-</div>
+                <label class="control-label" for="phone">Phone</label>
+                <div class="controls">
+                    <input type="tel" data-ng-model="grandma.phone" id="phone" class="form-control" placeholder="(734) 8675-309" required>
+                </div>
 
-
-
-<h3> end menu</h3> 
-
-        
-        
-        
-        <form class="form-horizontal" data-ng-submit="update()" novalidate>
-            <fieldset>
-                <div class="form-group" ng-show="showGrandmaMetadata">
-
-                  <label class="control-label" for="name">Name</label>
-                  <div class="controls">
-                      <input type="text" data-ng-model="grandma.name" id="name" class="form-control" placeholder="Grandma June" required>
+                <label class="control-label">Address</label>
+                <div class="well well-sm">
+                    <label class="control-label" for="street">Street</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="grandma.address.street" id="street" class="form-control" placeholder="street" >
+                    </div>
+                    <label class="control-label" for="city">City</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="grandma.address.city" id="city" class="form-control" placeholder="city" >
+                    </div>
+                    <label class="control-label" for="state">State</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="grandma.address.state" id="state" class="form-control" placeholder="state" >
+                    </div>
+                    <label class="control-label" for="zip">Zip</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="grandma.address.zip" id="zip" class="form-control" placeholder="zip" >
+                    </div>
                   </div>
-
-                 <label class="control-label" for="phone">Phone</label>
-                  <div class="controls">
-                      <input type="tel" data-ng-model="grandma.phone" id="phone" class="form-control" placeholder="(734) 8675-309" required>
-                  </div>
-
-                  <label class="control-label">Address</label>
-                  <div class="well well-sm">
-                      <label class="control-label" for="street">Street</label>
-                      <div class="controls">
-                          <input type="text" data-ng-model="grandma.address.street" id="street" class="form-control" placeholder="street" >
-                      </div>
-                      <label class="control-label" for="city">City</label>
-                      <div class="controls">
-                           <input type="text" data-ng-model="grandma.address.city" id="city" class="form-control" placeholder="city" >
-                      </div>
-                      <label class="control-label" for="state">State</label>
-                      <div class="controls">
-                           <input type="text" data-ng-model="grandma.address.state" id="state" class="form-control" placeholder="state" >
-                      </div>
-                      <label class="control-label" for="zip">Zip</label>
-                      <div class="controls">
-                           <input type="text" data-ng-model="grandma.address.zip" id="zip" class="form-control" placeholder="zip" >
-                      </div>
-                  </div>
-                 <label class="control-label" for="lat">Latitude</label>
+                  <label class="control-label" for="lat">Latitude</label>
                   <div class="controls">
                       <input type="text" data-ng-model="grandma.address.lat" id="lat" class="form-control" placeholder="Latitude">
                   </div>
-
-                 <label class="control-label" for="lon">Longitude</label>
+                  <label class="control-label" for="lon">Longitude</label>
                   <div class="controls">
                       <input type="text" data-ng-model="grandma.address.lon" id="lon" class="form-control" placeholder="Longitude">
                   </div>
-
-                </div>
-
-                
-                <div ng-repeat="treeMenu in grandma.rootTreeMenu[0].children">
-                    Name: {{treeMenu.name}}
-                    ID: {{treeMenu._id}}
-                      <a class="btn btn-default btn-sm" data-ng-click="deleteTreeMenu($index)">Delete</a>
-                      
-                      <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu($index)">add child</a>
-                </div>
-                <a class="btn btn-default btn-sm" data-ng-click="addTreeMenu(grandma.rootTreeMenu[0].length)">add  parent</a>
-                
-
-                <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
-    </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-default">
+            </div>
+				    <div data-ng-show="error" class="text-danger">
+					      <strong data-ng-bind="error"></strong>
+				    </div>
+        </fieldset>
+    </form>
 </section>
-
