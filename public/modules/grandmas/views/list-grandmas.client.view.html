@@ -3,29 +3,24 @@
         <h1>Grandmas</h1>
     </div>
     <accordion close-others="true">
-        <accordion-group data-ng-repeat="grandma in grandmas" heading="{{grandma.name}}" >
-              <p>Phone Number: {{grandma.phone}}</p>
-              <p>Address:
-                <br>
-                Street: {{grandma.address.street}}
-                <br>
-                City: {{grandma.address.city}}   State: {{grandma.address.state}}
-                Zip: {{grandma.address.zip}}
-                <br>
-                Lat: {{grandma.address.lat}}
-                <br>
-                Lon: {{grandma.address.lon}}
-              </p>
-              <p>Latitude: {{grandma.address.lat}}</p>
-              <p>Longitude: {{grandma.address.lon}}</p>
-          <div class="pull-right">
-            <a class="btn btn-primary" href="/#!/grandmas/{{grandma._id}}/edit">
-              <i class="glyphicon glyphicon-edit"></i>
-            </a>
-            <a class="btn btn-primary" data-ng-click="remove();">
-              <i class="glyphicon glyphicon-trash"></i>
-            </a>
-          </div>
+        <accordion-group data-ng-repeat="grandma in grandmas" heading="{{grandma.name}}">
+              <div class="accordion-content" data-ng-show="!$scope.editIsOn">
+                  <p>Phone Number: {{grandma.phone}}</p>
+                  <p>Address:
+                  <br>
+                  Street: {{grandma.address.street}}
+                  <br>
+                  City: {{grandma.address.city}}   State: {{grandma.address.state}}
+                  Zip: {{grandma.address.zip}}
+                  </p>
+                  <p>Latitude: {{grandma.address.lat}}</p>
+                  <p>Longitude: {{grandma.address.lon}}</p>
+              </div>
+              <div class="pull-right">
+              <a class="btn btn-primary" data-ng-click="remove(grandma);">
+                  <i class="glyphicon glyphicon-trash"></i>
+              </a>
+            </div>
         </accordion-group>
     </accordion>
     <div class="alert alert-warning text-center" data-ng-hide="!grandmas.$resolved || grandmas.length">

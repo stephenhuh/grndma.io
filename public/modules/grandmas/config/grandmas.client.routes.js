@@ -13,10 +13,6 @@ angular.module('grandmas').config(['$stateProvider',
 			url: '/grandmas/create',
 			templateUrl: 'modules/grandmas/views/create-grandma.client.view.html'
 		}).
-		state('viewGrandma', {
-			url: '/grandmas/:grandmaId',
-			templateUrl: 'modules/grandmas/views/view-grandma.client.view.html'
-		}).
 		state('editGrandma', {
 			url: '/grandmas/:grandmaId/edit',
 			templateUrl: 'modules/grandmas/views/edit-grandma.client.view.html'

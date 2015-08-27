@@ -4,7 +4,6 @@
 angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas', '$http',
 	function($scope, $stateParams, $location, Authentication, Grandmas, $http) {
 		$scope.authentication = Authentication;
-		$scope.showGrandmaMetadata = false;
 		$scope.list = [
   {
     'id': 1,
@@ -133,5 +132,10 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 
 			$location.path('grandmas/' + grandma._id + '/edit');
 		};
+
+		$scope.toggleEdit = function() {
+			$scope.editIsOn = !$scope.editIsOn;
+		};
+
 	}
 ]);
