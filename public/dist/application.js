@@ -52,6 +52,11 @@ ApplicationConfiguration.registerModule('core');
 ApplicationConfiguration.registerModule('grandmas');
 'use strict';
 
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('treeMenus');
+
+'use strict';
+
 // Use Application configuration module to register a new module
 ApplicationConfiguration.registerModule('users');
 'use strict';
@@ -88,6 +93,7 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		});
 	}
 ]);
+
 'use strict';
 
 
@@ -289,22 +295,63 @@ angular.module('grandmas').config(['$stateProvider',
 			url: '/grandmas/create',
 			templateUrl: 'modules/grandmas/views/create-grandma.client.view.html'
 		}).
-		state('viewGrandma', {
-			url: '/grandmas/:grandmaId',
-			templateUrl: 'modules/grandmas/views/view-grandma.client.view.html'
-		}).
 		state('editGrandma', {
 			url: '/grandmas/:grandmaId/edit',
 			templateUrl: 'modules/grandmas/views/edit-grandma.client.view.html'
 		});
 	}
 ]);
+
 'use strict';
 
 // Grandmas controller
-angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas',
-	function($scope, $stateParams, $location, Authentication, Grandmas) {
+angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas', '$http',
+	function($scope, $stateParams, $location, Authentication, Grandmas, $http) {
 		$scope.authentication = Authentication;
+		$scope.list = [
+  {
+    'id': 1,
+    'title': '1. dragon-breath',
+    'items': []
+  },
+  {
+    'id': 2,
+    'title': '2. moiré-vision',
+    'items': [
+      {
+        'id': 21,
+        'title': '2.1. tofu-animation',
+        'items': [
+          {
+            'id': 211,
+            'title': '2.1.1. spooky-giraffe',
+            'items': []
+          },
+          {
+            'id': 212,
+            'title': '2.1.2. bubble-burst',
+            'items': []
+          }
+        ]
+      },
+      {
+        'id': 22,
+        'title': '2.2. barehand-atomsplitting',
+        'items': []
+      }
+    ]
+  },
+  {
+    'id': 3,
+    'title': '3. unicorn-zapper',
+    'items': []
+  },
+  {
+    'id': 4,
+    'title': '4. romantic-transclusion',
+    'items': []
+  }
+];
 
 		// Create new Grandma
 		$scope.create = function() {
@@ -312,9 +359,14 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 			var grandma = new Grandmas ({
 				name: this.name,
 				phone: this.phone,
-				address: this.address,
-				lat: this.lat,
-				lon: this.lon
+				address: {
+					street: this.address.street,
+					city: this.address.city,
+					state: this.address.state,
+					zip: this.address.zip,
+					lat: this.address.lat,
+					lon: this.address.lon
+				}
 			});
 
 			// Redirect after save
@@ -330,7 +382,7 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 
 		// Remove existing Grandma
 		$scope.remove = function(grandma) {
-			if ( grandma ) { 
+			if ( grandma ) {
 				grandma.$remove();
 
 				for (var i in $scope.grandmas) {
@@ -363,10 +415,32 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 
 		// Find existing Grandma
 		$scope.findOne = function() {
-			$scope.grandma = Grandmas.get({ 
+			$scope.grandma = Grandmas.get({
 				grandmaId: $stateParams.grandmaId
 			});
 		};
+
+		$scope.deleteTreeMenu = function(index) {
+
+			$scope.grandma.rootTreeMenu[0].children.splice(index, 1);
+		};
+
+		$scope.addTreeMenu = function(newIndex) {
+			// debugger;
+			$scope.newTreeMenuIndex = newIndex;
+			var test = newIndex;
+			var grandma = $scope.grandma;
+			console.log(grandma.rootTreeMenu[0]);
+			//TODO: call update first
+			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: newIndex });
+
+			$location.path('grandmas/' + grandma._id + '/edit');
+		};
+
+		$scope.toggleEdit = function() {
+			$scope.editIsOn = !$scope.editIsOn;
+		};
+
 	}
 ]);
 
@@ -376,6 +450,128 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 angular.module('grandmas').factory('Grandmas', ['$resource',
 	function($resource) {
 		return $resource('grandmas/:grandmaId', { grandmaId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+
+		});
+	}
+]);
+'use strict';
+
+// Configuring the Articles module
+angular.module('treeMenus').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('topbar', 'TreeMenus', 'treeMenus', 'dropdown', '/treeMenus(/create)?');
+		Menus.addSubMenuItem('topbar', 'treeMenus', 'List TreeMenus', 'treeMenus');
+		Menus.addSubMenuItem('topbar', 'treeMenus', 'New TreeMenu', 'treeMenus/create');
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('treeMenus').config(['$stateProvider',
+	function($stateProvider) {
+		// TreeMenus state routing
+		$stateProvider.
+		state('listTreeMenus', {
+			url: '/treeMenus',
+			templateUrl: 'modules/treeMenus/views/list-treeMenus.client.view.html'
+		}).
+		state('createTreeMenu', {
+			url: '/treeMenus/create',
+			templateUrl: 'modules/treeMenus/views/create-treeMenu.client.view.html'
+		}).
+		state('viewTreeMenu', {
+			url: '/treeMenus/:treeMenuId',
+			templateUrl: 'modules/treeMenus/views/view-treeMenu.client.view.html'
+		}).
+		state('editTreeMenu', {
+			url: '/treeMenus/:treeMenuId/edit',
+			templateUrl: 'modules/treeMenus/views/edit-treeMenu.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+// TreeMenus controller
+angular.module('treeMenus').controller('TreeMenusController', ['$scope', '$stateParams', '$location', 'Authentication', 'TreeMenus',
+	function($scope, $stateParams, $location, Authentication, TreeMenus) {
+		$scope.authentication = Authentication;
+
+		// Create new TreeMenu
+		$scope.create = function() {
+			// Create new TreeMenu object
+			var treeMenu = new TreeMenus ({
+				name: this.name,
+				digit: this.digit,
+				spokenName: this.spokenName
+				// address: this.address,
+				// lat: this.lat,
+				// lon: this.lon
+			});
+
+			// Redirect after save
+			treeMenu.$save(function(response) {
+				$location.path('treeMenus/' + response._id);
+
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Remove existing TreeMenu
+		$scope.remove = function(treeMenu) {
+			if ( treeMenu ) {
+				treeMenu.$remove();
+
+				for (var i in $scope.treeMenus) {
+					if ($scope.treeMenus [i] === treeMenu) {
+						$scope.treeMenus.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.treeMenu.$remove(function() {
+					$location.path('treeMenus');
+				});
+			}
+		};
+
+		// Update existing TreeMenu
+		$scope.update = function() {
+			var treeMenu = $scope.treeMenu;
+
+			treeMenu.$update(function() {
+				$location.path('treeMenus/' + treeMenu._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		// Find a list of TreeMenus
+		$scope.find = function() {
+			$scope.treeMenus = TreeMenus.query();
+		};
+
+		// Find existing TreeMenu
+		$scope.findOne = function() {
+			$scope.treeMenu = TreeMenus.get({
+				treeMenuId: $stateParams.treeMenuId
+			});
+		};
+	}
+]);
+
+'use strict';
+
+//TreeMenus service used to communicate TreeMenus REST endpoints
+angular.module('treeMenus').factory('TreeMenus', ['$resource',
+	function($resource) {
+		return $resource('treeMenus/:treeMenuId', { treeMenuId: '@_id'
 		}, {
 			update: {
 				method: 'PUT'
@@ -414,10 +610,10 @@ angular.module('users').config(['$httpProvider',
 	}
 ]);
 'use strict';
-
 // Setting up route
 angular.module('users').config(['$stateProvider',
 	function($stateProvider) {
+		var dialog;
 		// Users state routing
 		$stateProvider.
 		state('profile', {
@@ -434,11 +630,47 @@ angular.module('users').config(['$stateProvider',
 		}).
 		state('signup', {
 			url: '/signup',
-			templateUrl: 'modules/users/views/authentication/signup.client.view.html'
+			templateUrl: 'modules/core/views/home.client.view.html',
+			onEnter: ['$stateParams', '$state', '$modal', '$resource', function($stateParams, $state, $modal, $resource) {
+				dialog = $modal.open({
+						templateUrl: 'modules/users/views/authentication/signup.client.view.html',
+						size: 'sm'
+				});
+				dialog.result.then(
+					function() {
+						$state.go('home');
+					},
+					function() {
+						$state.go('home');
+					},
+					function() {}
+				);
+			}],
+			onExit: ['$stateParams', '$state', '$modal', '$resource', function($stateParams, $state, $modal, $resource) {
+				dialog.close();
+			}]
 		}).
 		state('signin', {
 			url: '/signin',
-			templateUrl: 'modules/users/views/authentication/signin.client.view.html'
+			templateUrl: 'modules/core/views/home.client.view.html',
+			onEnter: ['$stateParams', '$state', '$modal', '$resource', function($stateParams, $state, $modal, $resource) {
+        dialog = $modal.open({
+						templateUrl: 'modules/users/views/authentication/signin.client.view.html',
+						size: 'sm'
+			  });
+				dialog.result.then(
+					function() {
+						$state.go('home');
+					},
+					function() {
+						$state.go('home');
+					},
+					function() {}
+        );
+    	}],
+			onExit: ['$stateParams', '$state', '$modal', '$resource', function($stateParams, $state, $modal, $resource) {
+				dialog.close();
+			}]
 		}).
 		state('forgot', {
 			url: '/password/forgot',
@@ -458,6 +690,7 @@ angular.module('users').config(['$stateProvider',
 		});
 	}
 ]);
+
 'use strict';
 
 angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
@@ -492,6 +725,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		};
 	}
 ]);
+
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication',
