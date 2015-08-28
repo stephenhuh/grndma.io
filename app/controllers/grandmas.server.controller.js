@@ -7,28 +7,49 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Grandma = mongoose.model('Grandma'),
 	TreeMenu = mongoose.model('treeMenu'),
+  ApiService = mongoose.model('apiService'),
 	_ = require('lodash');
 
 
-exports.addTreeMenu = function(req, res) {
-	//console.log(req);
-	var grandma = req.grandma ;
-	var newTreeMenuIndex = req.body.newTreeMenuIndex;
-	console.log(grandma);
-	console.log(newTreeMenuIndex);
-// splice (array, 0, treeMenu)
-	grandma.rootTreeMenu[0].children.splice(newTreeMenuIndex,0, new TreeMenu({name:'asdf',digit:'4'}));
-	// grandma.rootTreeMenu[0].children.push(new TreeMenu({name:'asdf',digit:'234'}));
-	
+exports.addService = function(req, res) {
+	var grandma= req.grandma;
+  var newService = new ApiService();
+  //grandma.apiServices.push(newService);
+	console.log('service added ' + newService);
 	grandma.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(grandma);
+			res.jsonp(newService);
 		}
 	});
+};
+
+exports.addTreeMenu = function(req, res) {
+  //currently NOT used
+	//console.log(req);
+	var grandma = req.grandma ;
+	//var newTreeMenuIndex = req.body.newTreeMenuIndex;
+	var newName = req.body.newName;
+	console.log(grandma);
+	//console.log(newTreeMenuIndex);
+	var newTreeMenu = new TreeMenu({name:'asdf',digit:'4'});
+	//TODO: maybe don't push it, just return it, so don't save until user calls update
+	grandma.tree.push(newTreeMenu);
+	// grandma.tree.splice(newTreeMenuIndex,0, new TreeMenu({name:'asdf',digit:'4'}));
+	// grandma.tree.push(new TreeMenu({name:'asdf',digit:'234'}));
+		
+		grandma.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(newTreeMenu);
+			}
+		});
 };
 /**
  * Create a Grandma
@@ -36,10 +57,12 @@ exports.addTreeMenu = function(req, res) {
 exports.create = function(req, res) {
 	var grandma = new Grandma(req.body);
 	grandma.user = req.user;
-	grandma.rootTreeMenu.push({name:'root',digit:0});
+	
+	//grandma.tree.push({name:'root',digit:0});
 
 	grandma.save(function(err) {
 		if (err) {
+      console.log(err);
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});

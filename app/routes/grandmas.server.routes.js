@@ -12,10 +12,9 @@ module.exports = function(app) {
 		
 	app.route('/grandmas/:grandmaId/addTreeMenu')
 		.put(users.requiresLogin, grandmas.hasAuthorization, grandmas.addTreeMenu);
-//		.get(users.requiresLogin, grandmas.hasAuthorization, grandmas.addTreeMenu);
 
-	// app.route('/grandmas/:grandmaId/addService')
-	// 	.put(users.requiresLogin, grandmas.hasAuthorization, grandmas.addService);
+	 app.route('/grandmas/:grandmaId/addService')
+	 	.put(users.requiresLogin, grandmas.hasAuthorization, grandmas.addService);
 
 	app.route('/grandmas/:grandmaId')
 		.get(users.requiresLogin, grandmas.hasAuthorization, grandmas.read)
