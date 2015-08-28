@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
-
+require('./apiService.server.model.js');
 /**
  * Menu Object: INFINITE RECURSION
  * Should it have user and menu link or just menu?
@@ -26,9 +26,17 @@ var treeMenuSchema = new Schema({
   digit: {
     type: Number,
 		trim: true,
-		required: 'please enter a digit '
+		//doing the digits automatically removes duplicate troubles
+	//	required: 'please enter a digit '
 		//todo: default auto increment
   },
+	// serviceID: {
+	// 	type: String
+	// },
+	serviceID: {
+		type: Schema.ObjectId
+//		ref: 'ApiService'
+	},
   IVRText: {
     type: String
 //TODO: default: name
@@ -41,8 +49,9 @@ var treeMenuSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'Grandma'
 	},
-  //children can be Menus or ServiceActions
-	children: [treeMenuSchema]
+  //treeMenus are menus or endpoints
+	tree: [treeMenuSchema]
 });
+treeMenuSchema.set('toJSON', { virtuals: true });
 
 mongoose.model('treeMenu', treeMenuSchema);

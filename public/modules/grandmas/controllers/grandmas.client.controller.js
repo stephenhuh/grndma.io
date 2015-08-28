@@ -4,51 +4,9 @@
 angular.module('grandmas').controller('GrandmasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Grandmas', '$http',
 	function($scope, $stateParams, $location, Authentication, Grandmas, $http) {
 		$scope.authentication = Authentication;
-		$scope.list = [
-  {
-    'id': 1,
-    'title': '1. dragon-breath',
-    'items': []
-  },
-  {
-    'id': 2,
-    'title': '2. moiré-vision',
-    'items': [
-      {
-        'id': 21,
-        'title': '2.1. tofu-animation',
-        'items': [
-          {
-            'id': 211,
-            'title': '2.1.1. spooky-giraffe',
-            'items': []
-          },
-          {
-            'id': 212,
-            'title': '2.1.2. bubble-burst',
-            'items': []
-          }
-        ]
-      },
-      {
-        'id': 22,
-        'title': '2.2. barehand-atomsplitting',
-        'items': []
-      }
-    ]
-  },
-  {
-    'id': 3,
-    'title': '3. unicorn-zapper',
-    'items': []
-  },
-  {
-    'id': 4,
-    'title': '4. romantic-transclusion',
-    'items': []
-  }
-];
-
+	
+		$scope.showGrandmaMetadata = false;
+		
 		// Create new Grandma
 		$scope.create = function() {
 			// Create new Grandma object
@@ -64,7 +22,11 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 					lon: this.address.lon
 				}
 			});
-
+			
+			$scope.toggle = function (scope) {
+				scope.toggle();
+			};
+			
 			// Redirect after save
 			grandma.$save(function(response) {
 				$location.path('grandmas/' + response._id);
@@ -117,20 +79,61 @@ angular.module('grandmas').controller('GrandmasController', ['$scope', '$statePa
 		};
 
 		$scope.deleteTreeMenu = function(index) {
-
-			$scope.grandma.rootTreeMenu[0].children.splice(index, 1);
+			//not sure if this will work past node 1
+			//probably not even needed angular magic seems to have taken over
+			$scope.grandma.tree.splice(index, 1);
 		};
 
-		$scope.addTreeMenu = function(newIndex) {
-			// debugger;
-			$scope.newTreeMenuIndex = newIndex;
-			var test = newIndex;
-			var grandma = $scope.grandma;
-			console.log(grandma.rootTreeMenu[0]);
+		$scope.addTreeMenu = function(scope, isRootTree) {
 			//TODO: call update first
-			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: newIndex });
-
-			$location.path('grandmas/' + grandma._id + '/edit');
+			//I tried to design to avoid treating the root as a special case, but I have not succeeded yet... 
+			var nodeData;
+			if(isRootTree) nodeData = $scope.grandma;
+			else nodeData = scope.$modelValue;
+			nodeData.tree.push({
+				name: 'Item ' + (nodeData.tree.length + 1),
+				tree: []
+			});
+		//	$location.path('grandmas/' + grandma._id + '/edit');
+		};
+		
+		$scope.addService = function(scope) {
+			$http.put('grandmas/' + $scope.grandma._id + '/addService').
+				success(function(data, status, headers, config) {
+					console.log('yay service added ' + JSON.stringify(data));
+				//	scope.$modelValue.serviceID ='fasdfasdf';
+					scope.$modelValue.serviceID = data._id;
+					$scope.grandma.apiServices.push(data);
+					console.log(scope.$modelValue.serviceID);
+					console.log(scope.$modelValue);
+				}).
+				error(function(data, status, headers, config) {
+					console.error('add service ajax error ' + data);
+				});
+		};
+		
+		$scope.addTreeMenuServer = function(scope, isRootTree) {
+			//I tried to design to avoid treating the root as a special case, but I have not succeeded yet... 
+			var nodeData;
+			if(isRootTree) nodeData = $scope.grandma;
+			else nodeData = scope.$modelValue;
+			
+			console.log('addtreemenu got ' + nodeData);
+			
+		//	$scope.newTreeMenuIndex = newIndex;
+			var grandma = $scope.grandma;
+			//TODO: call update first
+			//this fancy business is to get some server-side validation in the picture
+			$http.put('grandmas/' + grandma._id + '/addTreeMenu', {newTreeMenuIndex: 0 }).
+					success(function(data, status, headers, config) {
+						console.log('yay node added ' + JSON.stringify(data));
+					nodeData.tree.push(data);
+					}).
+					error(function(data, status, headers, config) {
+						console.error('add node ajax error ' + data);
+					});
+					//TODO: push to tree[] from scope 
+			//$location.path('grandmas/' + grandma._id + '/edit');
 		};
 
 		$scope.toggleEdit = function() {
