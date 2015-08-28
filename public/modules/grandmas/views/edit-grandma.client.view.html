@@ -4,7 +4,9 @@
     </div>
     <form class="form-horizontal" data-ng-submit="update()" novalidate>
         <fieldset>
-            <div class="form-group">
+          <a class="btn btn-primary" data-ng-click="showGrandmaMetadata = !showGrandmaMetadata"> Toggle Grandma Info </a>
+          
+            <div class="form-group" ng-show="showGrandmaMetadata">
                 <label class="control-label" for="name">Name</label>
                 <div class="controls">
                     <input type="text" data-ng-model="grandma.name" id="name" class="form-control" placeholder="Grandma June" required>
@@ -59,7 +61,7 @@
     Name:   <input type="text" data-ng-model="menuItem.name" > <br>
 
 
-   <a class=" btn btn-warning btn-xs" ng-if="!menuItem.serviceID" data-nodrag  ng-click="addService(this)">Create Service  <span class="glyphicon glyphicon-send"></span></a>
+   <a class=" btn btn-warning btn-xs" ng-if="(!menuItem.serviceID && menuItem.tree.length <=0)" data-nodrag  ng-click="addService(this)">Create Service  <span class="glyphicon glyphicon-send"></span></a>
    
    
    <a class=" btn btn-success btn-xs" ng-show="((menuItem.tree.length <= 0) && menuItem.serviceID)" data-nodrag ng-click="addService(this)">Edit Service <span
