@@ -34,33 +34,43 @@
             </accordion-heading>
             <form class="form" data-ng-submit="create()" novalidate>
                 <fieldset>
-                    <div class="input-group">
-                        <label class="control-label" for="name">Name</label>
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Grandma June" required>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="input-group">
+                          <label class="control-label" for="name">Name</label>
+                          <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Grandma June" required>
+                      </div>
+                      <div class="input-group">
+                          <label class="control-label" for="phone">Phone</label>
+                          <input type="tel" data-ng-model="phone" id="phone" class="form-control" placeholder="(123) 456-7890" required>
+                      </div>
                     </div>
-                    <div class="input-group">
-                        <label class="control-label" for="phone">Phone</label>
-                        <input type="tel" data-ng-model="phone" id="phone" class="form-control" placeholder="(123) 456-7890" required>
+                    <div class="col-md-6">
+                      <div class="input-group">
+                          <label class="control-label">Address</label>
+                          <input type="text" data-ng-model="address.street" id="street" class="form-control" placeholder="Street" >
+                          <input type="text" data-ng-model="address.city" id="city" class="form-control" placeholder="City" >
+                          <input type="text" data-ng-model="address.state" id="state" class="form-control" placeholder="State">
+                          <input type="text" data-ng-model="address.zip" id="zip" class="form-control" placeholder="Zip Code">
+                      </div>
                     </div>
-                    <div class="input-group">
-                        <label class="control-label">Address</label>
-                        <input type="text" data-ng-model="address.street" id="street" class="form-control" placeholder="Street" >
-                        <input type="text" data-ng-model="address.city" id="city" class="form-control" placeholder="City" >
-                        <input type="text" data-ng-model="address.state" id="state" class="form-control" placeholder="State">
-                        <input type="text" data-ng-model="address.zip" id="zip" class="form-control" placeholder="Zip Code">
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="input-group">
+                          <label class="control-label" for="lat">Location</label>
+                          <input type="text" data-ng-model="address.lat" id="lat" class="form-control" placeholder="Latitude">
+                          <input type="text" data-ng-model="address.lon" id="lon" class="form-control" placeholder="Longitude">
+                      </div>
+                      <br>
+                      <div class="text-center">
+                          <input type="submit" class="btn btn-submit">
+                      </div>
+      				        <div data-ng-show="error" class="text-danger">
+      					          <strong data-ng-bind="error"></strong>
+      				        </div>
                     </div>
-                    <div class="input-group">
-                        <label class="control-label" for="lat">Location</label>
-                        <input type="text" data-ng-model="address.lat" id="lat" class="form-control" placeholder="Latitude">
-                        <input type="text" data-ng-model="address.lon" id="lon" class="form-control" placeholder="Longitude">
-                    </div>
-                    <br>
-                    <div class="text-center">
-                        <input type="submit" class="btn btn-submit">
-                    </div>
-    				        <div data-ng-show="error" class="text-danger">
-    					          <strong data-ng-bind="error"></strong>
-    				        </div>
+                  </div>
                 </fieldset>
              </form>
           </accordion-group>
