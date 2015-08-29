@@ -5,7 +5,7 @@
     <form class="form-horizontal" data-ng-submit="update()" novalidate>
         <fieldset>
           <a class="btn btn-primary" data-ng-click="showGrandmaMetadata = !showGrandmaMetadata"> Toggle Grandma Info </a>
-          
+
             <div class="form-group" ng-show="showGrandmaMetadata">
                 <label class="control-label" for="name">Name</label>
                 <div class="controls">
@@ -45,59 +45,56 @@
                       <input type="text" data-ng-model="grandma.address.lon" id="lon" class="form-control" placeholder="Longitude">
                   </div>
             </div>
-  <br><br>          
+  <br><br>
 <script type="text/ng-template" id="nodes_renderer.html">
   <div ui-tree-handle class="tree-node tree-node-content">
- 
+
     <a class="btn btn-success btn-xs" ng-if="menuItem.tree && menuItem.tree.length > 0" data-nodrag ng-click="toggle(this)"> <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed,
 'glyphicon-chevron-down': !collapsed}" </span> </a>
-      
+
     <a class=" btn btn-danger btn-xs" data-nodrag ng-click="remove(menuItem)"><span
      class="glyphicon glyphicon-remove"></span></a>
-     
-     <a class="btn btn-primary btn-xs" ng-show="!menuItem.serviceID" data-nodrag ng-click="addTreeMenu(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a> 
+
+     <a class="btn btn-primary btn-xs" ng-show="!menuItem.serviceID" data-nodrag ng-click="addTreeMenu(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
 
      <br>
     Name:   <input type="text" data-ng-model="menuItem.name" > <br>
 
 
    <a class=" btn btn-warning btn-xs" ng-if="(!menuItem.serviceID && menuItem.tree.length <=0)" data-nodrag  ng-click="addService(this)">Create Service  <span class="glyphicon glyphicon-send"></span></a>
-   
-   
+
+
    <a class=" btn btn-success btn-xs" ng-show="((menuItem.tree.length <= 0) && menuItem.serviceID)" data-nodrag ng-click="addService(this)">Edit Service <span
    class="glyphicon glyphicons-settings"></span></a>
-     
-     
+
+
      <br><br>
-     
+
   </div>
-  
+
     <ol ui-tree-nodes="" ng-model="menuItem.tree" ng-class="{hidden: collapsed}">
 
       <li ng-repeat="menuItem in menuItem.tree" ui-tree-node ng-include="'nodes_renderer.html'">
-        
+
       </li>
     </ol>
- </script> 
-       
-       
- <div data-ng-model="grandma.tree"> 
+ </script>
+
+
+ <div data-ng-model="grandma.tree">
    <a class="btn btn-primary" data-ng-click="addTreeMenu(this, 1)" ><span class="glyphicon glyphicon-plus"></span> Add</a>
- </div> <br>     
-      
+ </div> <br>
+
  <div ui-tree>
-   
+
    <ol ui-tree-nodes="" ng-model="grandma.tree">
      <li ng-repeat="menuItem in grandma.tree" ui-tree-node ng-include="'nodes_renderer.html'">
-                
+
      </li>
    </ol>
  </div>
 
      <!-- </script> -->
-            
-            
-            
             <div class="form-group">
                 <input type="submit" class="btn btn-default">
             </div>
@@ -106,11 +103,11 @@
 				    </div>
         </fieldset>
     </form>
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
 </section>
